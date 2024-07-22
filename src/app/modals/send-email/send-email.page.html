@@ -19,18 +19,13 @@
         </ion-item>
       </div> -->
       <div class="field-wrapper" id="div_input_topic" #div_input_topic>
-        <input type="text" formControlName="subject" >
+        <input type="text" formControlName="subject">
         <div class="field-placeholder" (click)="addFocus()"><span>{{translationMap?.get('EMAIL.SUBJECT')}}</span></div>
       </div>
 
       <ion-label class="message-placeholder">{{translationMap?.get('EMAIL.MESSAGE')}}</ion-label>
       <div class="field-wrapper-email">
-        <ion-textarea 
-          formControlName="text"
-          autosize="false" 
-          auto-grow="true" 
-          autofocus="true"
-          rows="2"
+        <ion-textarea formControlName="text" autosize="false" auto-grow="true" autofocus="true" rows="2"
           placeholder="{{translationMap?.get('EMAIL.MESSAGE_PLACEHOLDER')}}">
         </ion-textarea>
         <div class="info-wrapper" *ngIf="LOGOS_ITEMS['BASE_LOGO_GRAY'].icon">
@@ -40,7 +35,8 @@
       </div>
 
       <div class="field-wrapper-submit">
-        <ion-button [disabled]="emailFormGroup.invalid" ion-button fill="clear" type="submit">{{translationMap?.get('LABEL_SEND')}}</ion-button>
+        <ion-button [disabled]="emailFormGroup.invalid" ion-button fill="clear" type="submit">
+          {{translationMap?.get('LABEL_SEND')}}</ion-button>
       </div>
     </form>
   </div>

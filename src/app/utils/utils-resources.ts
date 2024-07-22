@@ -5,7 +5,7 @@ export const BRAND_BASE_INFO: { [key: string]: string | boolean } = {
   COMPANY_SITE_URL: "https://www.tiledesk.com",
   CONTACT_US_EMAIL: "support@tiledesk.com",
   FAVICON: "https://i.ibb.co/cD5hS42/logo-short-0.png",
-  META_TITLE: "GPT - Open Source Live Chat",
+  META_TITLE: "GPT - Live Chat",
   DOCS: true,
   LOGOUT_ENABLED: false,
 };
