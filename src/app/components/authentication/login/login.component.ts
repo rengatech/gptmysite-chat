@@ -136,7 +136,7 @@ export class LoginComponent implements OnInit {
 
   signInWithGoogle(){
     // const url = this.SERVER_BASE_PATH + "auth/google"
-    const url = "https://eu.rtmv3.tiledesk.com/api/auth/google" + '?forced_redirect_url=chat://conversation-detail?from=google'
+    const url = "https://eu.rtmv3.GPTMysite.com/api/auth/google" + '?forced_redirect_url=chat://conversation-detail?from=google'
     this.iab.create(url, '_system', 'location=yes')
   }
 

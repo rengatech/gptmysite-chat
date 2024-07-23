@@ -5,7 +5,7 @@ import { ConversationModel } from '../../../../chat21-core/models/conversation';
 import { ImageRepoService } from '../../../../chat21-core/providers/abstract/image-repo.service';
 
 @Component({
-  selector: 'tiledeskwidget-list-conversations',
+  selector: 'GPTMysitewidget-list-conversations',
   templateUrl: './list-conversations.component.html',
   styleUrls: ['./list-conversations.component.scss']
 })

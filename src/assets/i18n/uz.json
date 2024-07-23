@@ -112,7 +112,7 @@
   "LABEL_ENTER_MSG": "Xabarni kiriting yoki tayyor javoblar uchun / tugmasini bosing",
   "LABEL_ENTER_MSG_SHORT": "Xabar kiriting",
   "LABEL_ENTER_MSG_SHORTER": "Kirish...",
-  "LABEL_MSG_LOGIN_TILEDESK": "Suhbatni boshlash uchun tizimga kiring",
+  "LABEL_MSG_LOGIN_GPTMysite": "Suhbatni boshlash uchun tizimga kiring",
   "LABEL_ARCHIVED": "Arxivlangan",
   "LABEL_INFO_CONVERSATION": "Ma'lumot suhbati",
   "LABEL_INFO_USER": "Ma'lumot foydalanuvchisi",
@@ -152,7 +152,7 @@
   "BUTTON_CLOSE_TO_ICON": "Suhbatni minimallashtirish",
   "BUTTON_EDIT_PROFILE": "Profilni yangilash",
   "RATE_CHAT": "Suhbatni baholang",
-  "WELLCOME_TITLE": "Salom, Tiledesk 👋 ga xush kelibsiz",
+  "WELLCOME_TITLE": "Salom, GPTMysite 👋 ga xush kelibsiz",
   "WELLCOME_MSG": "Biz qanday yordam bera olamiz?",
   "WELLCOME": "Xush kelibsiz",
   "OPTIONS": "variantlari",
@@ -303,7 +303,7 @@
     "MESSAGE_PLACEHOLDER":"Xabaringizni yozing...",
     "SEND_EMAIL_SUCCESS":"Elektron pochta muvaffaqiyatli yuborildi ✌🏻",
     "SEND_EMAIL_ERROR":"⚠️ DIQQAT ⚠️ Elektron pochta xabarini yuborishda xatolik yuz berdi. Qaytadan urining",
-    "SUBJECT_OFFLINE_MESSAGE":"Tiledesk oflayn xabar 💬",
+    "SUBJECT_OFFLINE_MESSAGE":"GPTMysite oflayn xabar 💬",
     "SEND_EMAIL_SUCCESS_OFFLINE_MESSAGE":"Xabar elektron pochta orqali ham yuborildi 📩"
   }
 }

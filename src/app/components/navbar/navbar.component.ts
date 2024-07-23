@@ -1,5 +1,5 @@
 import { AppConfigProvider } from 'src/app/services/app-config';
-import { TiledeskAuthService } from 'src/chat21-core/providers/tiledesk/tiledesk-auth.service';
+import { GPTMysiteAuthService } from 'src/chat21-core/providers/GPTMysite/GPTMysite-auth.service';
 import { EventsService } from 'src/app/services/events-service';
 import { ProjectsService } from './../../services/projects/projects.service';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
   @Output() onSoundChange = new EventEmitter<string>();
 
   private logger: LoggerService = LoggerInstance.getInstance();
-  private tiledeskToken: string;
+  private GPTMysiteToken: string;
 
   public projects: Project[] = [];
   public project: any = [];
@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private projectsService: ProjectsService,
-    private tiledeskAuthService: TiledeskAuthService,
+    private GPTMysiteAuthService: GPTMysiteAuthService,
     private appConfigProvider: AppConfigProvider,
     private translateService: CustomTranslateService, 
     private events: EventsService,
@@ -70,7 +70,7 @@ export class NavbarComponent implements OnInit {
     this.events.subscribe('go:online', (isOnline)=> {
       this.logger.log('[NAVBAR] listen to go:online --> ', isOnline);
       if(isOnline){
-        this.tiledeskToken = this.tiledeskAuthService.getTiledeskToken();
+        this.GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken();
         this.getProjects()
       }
     });
@@ -78,7 +78,7 @@ export class NavbarComponent implements OnInit {
 
   getProjects() {
     this.logger.log('[NAVBAR] calling getProjects ... ');
-    this.projectsService.getProjects(this.tiledeskToken).subscribe((projects: any) => {
+    this.projectsService.getProjects(this.GPTMysiteToken).subscribe((projects: any) => {
       this.logger.log('[NAVBAR] getProjects PROJECTS ', projects);
       if (projects) {
           // this.projects = projects;
@@ -159,7 +159,7 @@ export class NavbarComponent implements OnInit {
     const simulateVisitorBtnElem = <HTMLElement>document.querySelector('.simulate-visitor-btn');
     simulateVisitorBtnElem.blur();
     // + '&isOpen=true'
-    const url = this.appConfigProvider.getConfig().widgetBaseUrl + 'assets/twp/index.html?tiledesk_projectid=' + this.project.id_project.id + '&project_name=' + this.project.id_project.name + '&role=' + this.USER_ROLE
+    const url = this.appConfigProvider.getConfig().widgetBaseUrl + 'assets/twp/index.html?GPTMysite_projectid=' + this.project.id_project.id + '&project_name=' + this.project.id_project.name + '&role=' + this.USER_ROLE
     window.open(url, '_blank');
   }
 
@@ -167,11 +167,11 @@ export class NavbarComponent implements OnInit {
     const baseUrl = this.appConfigProvider.getConfig().dashboardUrl
     let url = baseUrl
     if(event === 'projectSettings'){
-      url = baseUrl + '#/project/' + this.project.id_project.id + '/project-settings/general' + '?token=' + this.tiledeskToken
+      url = baseUrl + '#/project/' + this.project.id_project.id + '/project-settings/general' + '?token=' + this.GPTMysiteToken
     }else if(event ==='allProjects'){
-      url = baseUrl + '#/projects/' + '?token=' + this.tiledeskToken
+      url = baseUrl + '#/projects/' + '?token=' + this.GPTMysiteToken
     }else if('addProject'){
-      url = baseUrl + '#/create-new-project/' + '?token=' + this.tiledeskToken
+      url = baseUrl + '#/create-new-project/' + '?token=' + this.GPTMysiteToken
     }
     console.log('onClickDropdownOption-->', url)
     window.open(url, '_blank');

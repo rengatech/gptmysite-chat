@@ -11,7 +11,7 @@ import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance'
 @Injectable({
   providedIn: 'root'
 })
-export class TiledeskService {
+export class GPTMysiteService {
 
   private apiUrl: string;
   private logger: LoggerService = LoggerInstance.getInstance();
@@ -22,7 +22,7 @@ export class TiledeskService {
   ) {
     this.apiUrl = appConfigProvider.getConfig().apiUrl;
     // const projectUrl = this.apiUrl + 'projects/'
-    // console.log('[TILEDESK-SERVICE] projectUrl' ,projectUrl  )
+    // console.log('[GPTMysite-SERVICE] projectUrl' ,projectUrl  )
   }
 
 
@@ -40,13 +40,13 @@ export class TiledeskService {
       force: true
     };
     // console.log('CLOUD FUNCT CLOSE SUPPORT GROUP REQUEST BODY ', body);
-    // https://tiledesk-server-pre.herokuapp.com/
-    // const url = 'https://tiledesk-server-pre.herokuapp.com/' + this.project_id + '/requests/' + group_id + '/close';
+    // https://GPTMysite-server-pre.herokuapp.com/
+    // const url = 'https://GPTMysite-server-pre.herokuapp.com/' + this.project_id + '/requests/' + group_id + '/close';
     const url = this.apiUrl + projectid + '/requests/' + supportgroupid + '/close';
 
-    this.logger.log('[TILEDESK-SERVICE] - closeSupportGroup URL ', url);
+    this.logger.log('[GPTMysite-SERVICE] - closeSupportGroup URL ', url);
     return this.http.put(url, body, httpOptions).pipe(map((res: any) => {
-        this.logger.log('[TILEDESK-SERVICE] - closeSupportGroup - RES ', res);
+        this.logger.log('[GPTMysite-SERVICE] - closeSupportGroup - RES ', res);
         return res
     }))
   }
@@ -56,7 +56,7 @@ export class TiledeskService {
   // ---------------------------------------------
   public getRequest(request_id: string, project_id: string, token: string) {
     const url = this.apiUrl + project_id + '/requests/'+request_id
-    this.logger.log('[TILEDESK-SERVICE] - CREATE NEW LEAD url ', url);
+    this.logger.log('[GPTMysite-SERVICE] - CREATE NEW LEAD url ', url);
    
     const httpOptions = {
       headers: new HttpHeaders({
@@ -66,7 +66,7 @@ export class TiledeskService {
     };
 
     return this.http.get(url, httpOptions).pipe(map((res: any) => {
-      this.logger.log('[TILEDESK-SERVICE] - CREATE NEW LEAD RES ', res);
+      this.logger.log('[GPTMysite-SERVICE] - CREATE NEW LEAD RES ', res);
       return res
     }))
   }
@@ -74,7 +74,7 @@ export class TiledeskService {
   public getProjectIdByConvRecipient(token: string ,conversationWith: string ) {
     const lookupUrl = this.apiUrl + 'requests_util/lookup/id_project/' + conversationWith;
 
-    this.logger.log('[TILEDESK-SERVICE] GET PROJECTID BY CONV RECIPIENT - URL ', lookupUrl);
+    this.logger.log('[GPTMysite-SERVICE] GET PROJECTID BY CONV RECIPIENT - URL ', lookupUrl);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -84,14 +84,14 @@ export class TiledeskService {
     };
 
     return this.http.get(lookupUrl, httpOptions).pipe(map((res: any) => {
-        this.logger.log('[TILEDESK-SERVICE] GET PROJECTID BY CONV RECIPIENT - RES ', res);
+        this.logger.log('[GPTMysite-SERVICE] GET PROJECTID BY CONV RECIPIENT - RES ', res);
         return res
     }))
   }
 
   public getProjects(token: string) {
     const url = this.apiUrl + 'projects/';
-    this.logger.log('[TILEDESK-SERVICE] - GET PROJECTS URL', url);
+    this.logger.log('[GPTMysite-SERVICE] - GET PROJECTS URL', url);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -101,7 +101,7 @@ export class TiledeskService {
     };
 
     return this.http.get(url, httpOptions).pipe(map((res: any) => {
-      this.logger.log('[TILEDESK-SERVICE] GET PROJECTS - RES ', res);
+      this.logger.log('[GPTMysite-SERVICE] GET PROJECTS - RES ', res);
       return res
     }))
   }
@@ -109,7 +109,7 @@ export class TiledeskService {
 
   public getProjectById( token: string , id: string) {
     const url = this.apiUrl + 'projects/' + id;
-    this.logger.log('[TILEDESK-SERVICE] - GET PROJECT BY ID URL', url);
+    this.logger.log('[GPTMysite-SERVICE] - GET PROJECT BY ID URL', url);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -118,7 +118,7 @@ export class TiledeskService {
       })
     };
     return this.http.get(url, httpOptions).pipe(map((res: any) => {
-      this.logger.log('[TILEDESK-SERVICE] GET PROJECT BY ID URL - RES ', res);
+      this.logger.log('[GPTMysite-SERVICE] GET PROJECT BY ID URL - RES ', res);
       return res
     }))
   }
@@ -126,7 +126,7 @@ export class TiledeskService {
 
   public getProjectUsersByProjectId(project_id: string, token: string) {
     const url = this.apiUrl + project_id + '/project_users/';
-    this.logger.log('[TILEDESK-SERVICE] - GET PROJECT-USER URL', url);
+    this.logger.log('[GPTMysite-SERVICE] - GET PROJECT-USER URL', url);
     
     const httpOptions = {
       headers: new HttpHeaders({
@@ -135,14 +135,14 @@ export class TiledeskService {
       })
     };
     return this.http.get(url, httpOptions).pipe(map((res: any) => {
-      this.logger.log('[TILEDESK-SERVICE] - GET PROJECT-USER RES ', res);
+      this.logger.log('[GPTMysite-SERVICE] - GET PROJECT-USER RES ', res);
       return res
     }))
   }
 
   public getAllLeadsActiveWithLimit(project_id: string, token: string, limit: number) {
     const url = this.apiUrl + project_id + '/leads?limit=' + limit + '&with_fullname=true';
-    this.logger.log('[TILEDESK-SERVICE] - GET ALL ACTIVE LEADS (LIMIT 10000) -  URL', url);
+    this.logger.log('[GPTMysite-SERVICE] - GET ALL ACTIVE LEADS (LIMIT 10000) -  URL', url);
     
     const httpOptions = {
       headers: new HttpHeaders({
@@ -151,7 +151,7 @@ export class TiledeskService {
       })
     };
     return this.http.get(url, httpOptions).pipe(map((res: any) => {
-      this.logger.log('[TILEDESK-SERVICE] - GET ALL ACTIVE LEADS (LIMIT 10000) ', res);
+      this.logger.log('[GPTMysite-SERVICE] - GET ALL ACTIVE LEADS (LIMIT 10000) ', res);
       return res
     }))
   }
@@ -162,7 +162,7 @@ export class TiledeskService {
   // ---------------------------------------------
   public createNewProjectUserToGetNewLeadID(project_id: string, token: string) {
     const url = this.apiUrl + project_id + '/project_users/'
-    this.logger.log('[TILEDESK-SERVICE] - CREATE NEW PROJECT USER TO GET NEW LEAD ID url ', url);
+    this.logger.log('[GPTMysite-SERVICE] - CREATE NEW PROJECT USER TO GET NEW LEAD ID url ', url);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -171,7 +171,7 @@ export class TiledeskService {
     };
     const body = {};
     return this.http.post(url, body, httpOptions).pipe(map((res: any) => {
-        this.logger.log('[TILEDESK-SERVICE] - CREATE NEW PROJECT USER TO GET NEW LEAD ID url ', res);
+        this.logger.log('[GPTMysite-SERVICE] - CREATE NEW PROJECT USER TO GET NEW LEAD ID url ', res);
         return res
       }))
   }
@@ -181,7 +181,7 @@ export class TiledeskService {
   // ---------------------------------------------
   public createNewLead(leadid: string, fullname: string, leademail: string, project_id: string, token: string) {
     const url = this.apiUrl + project_id + '/leads/'
-    this.logger.log('[TILEDESK-SERVICE] - CREATE NEW LEAD url ', url);
+    this.logger.log('[GPTMysite-SERVICE] - CREATE NEW LEAD url ', url);
    
     const httpOptions = {
       headers: new HttpHeaders({
@@ -191,10 +191,10 @@ export class TiledeskService {
     };
 
     const body = { 'lead_id': leadid, 'fullname': fullname, 'email': leademail };
-    this.logger.log('[TILEDESK-SERVICE] - CREATE NEW LEAD ', body);
+    this.logger.log('[GPTMysite-SERVICE] - CREATE NEW LEAD ', body);
 
     return this.http.post(url, body, httpOptions).pipe(map((res: any) => {
-      this.logger.log('[TILEDESK-SERVICE] - CREATE NEW LEAD RES ', res);
+      this.logger.log('[GPTMysite-SERVICE] - CREATE NEW LEAD RES ', res);
       return res
     }))
   }
@@ -205,7 +205,7 @@ export class TiledeskService {
   public getAllBotByProjectId(project_id: string, token: string) {
    
     const url = this.apiUrl + project_id + '/faq_kb?all=true'
-    this.logger.log('[TILEDESK-SERVICE] - GET ALL BOTS BY PROJECT ID - URL', url);
+    this.logger.log('[GPTMysite-SERVICE] - GET ALL BOTS BY PROJECT ID - URL', url);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -215,7 +215,7 @@ export class TiledeskService {
     };
 
     return this.http.get(url, httpOptions).pipe(map((res: any) => {
-      this.logger.log('[TILEDESK-SERVICE] - GET ALL BOTS BY PROJECT ID - RES ', res);
+      this.logger.log('[GPTMysite-SERVICE] - GET ALL BOTS BY PROJECT ID - RES ', res);
       return res
     }))
   }
@@ -226,7 +226,7 @@ export class TiledeskService {
   public getDeptsByProjectId(project_id: string, token: string) {
    
     const url = this.apiUrl + project_id + '/departments/allstatus';
-    this.logger.log('[TILEDESK-SERVICE] - GET DEPTS (ALL STATUS) - URL', url);
+    this.logger.log('[GPTMysite-SERVICE] - GET DEPTS (ALL STATUS) - URL', url);
    
     const httpOptions = {
       headers: new HttpHeaders({
@@ -236,7 +236,7 @@ export class TiledeskService {
     };
 
     return this.http.get(url, httpOptions).pipe(map((res: any) => {
-      this.logger.log('[TILEDESK-SERVICE] - GET DEPTS (ALL STATUS) - RES ', res);
+      this.logger.log('[GPTMysite-SERVICE] - GET DEPTS (ALL STATUS) - RES ', res);
       return res
     }))
   }
@@ -267,7 +267,7 @@ export class TiledeskService {
 
     this.logger.log('[WS-REQUESTS-SERV] - CREATE INTERNAL REQUEST body ', body);
     return this.http.post(url, body, httpOptions).pipe(map((res: any) => {
-      this.logger.log('[TILEDESK-SERVICE] - CREATE NEW LEAD RES ', res);
+      this.logger.log('[GPTMysite-SERVICE] - CREATE NEW LEAD RES ', res);
       return res
     }))
   }
@@ -288,9 +288,9 @@ export class TiledeskService {
     const body = form;
 
     const url = this.apiUrl + projectid + '/requests/' + request_id + '/email/send';
-    this.logger.log('[TILEDESK-SERVICE] - sendEmail URL ', url);
+    this.logger.log('[GPTMysite-SERVICE] - sendEmail URL ', url);
     return this.http.post(url, body, httpOptions).pipe(map((res: any) => {
-        this.logger.log('[TILEDESK-SERVICE] - sendEmail - RES ', res);
+        this.logger.log('[GPTMysite-SERVICE] - sendEmail - RES ', res);
         return res
     }))
   }

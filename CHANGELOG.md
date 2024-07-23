@@ -6,7 +6,7 @@
 ### 3.4.0 in PROD
 
 ### 3.4.0-rc.1
-- added: downloadURL in metadata obj while sending message from tiledesk
+- added: downloadURL in metadata obj while sending message from GPTMysite
 
 ### 3.3.0 in PROD
 
@@ -105,7 +105,7 @@
 ### 3.0.105 in PROD
 
 ### 3.0.105.rc.1
-- added: get tiledeskToken from tiledesk_token key in favour of appStorageService.getItem('tiledeskToken')
+- added: get GPTMysiteToken from GPTMysite_token key in favour of appStorageService.getItem('GPTMysiteToken')
 
 ### 3.0.104.1 in PROD
 - minor bug fixing
@@ -146,7 +146,7 @@
 ### 3.0.99 in PROD
 
 ### 3.0.99-rc.2
-- bug-fixed: after tiledesk closes a conversation, call archiveConversation's conversationsHandler method to manually remote it from active conversations list
+- bug-fixed: after GPTMysite closes a conversation, call archiveConversation's conversationsHandler method to manually remote it from active conversations list
 
 ### 3.0.99-rc.1
 - added: audio file enabled
@@ -183,7 +183,7 @@
 ### 3.0.97-rc.3
 - added: channel property to message/conversation and changed attributes.channel to attributes.offline_channel for offline message email
 - added: channel info in conversation-header-detail component
-- updated: tiledesk logo
+- updated: GPTMysite logo
 - bug-fixed: sort last-messages for mqtt before publish to component
 
 ### 3.0.97-rc.2
@@ -254,7 +254,7 @@
 - bug-fixed: enable Copy option in bubble-message only if text exist
 
 ### 3.0.90-rc.6
-- changed: dimension of bottom tiledesk logo in left sidebar
+- changed: dimension of bottom GPTMysite logo in left sidebar
 - removed: isDev control
 
 ### 3.0.90-rc.5
@@ -281,7 +281,7 @@
 
 ### 3.0.90-rc.1
 - added: autofocus on first input
-- added: tiledesk logo on sidebar
+- added: GPTMysite logo on sidebar
 - added: sourceTitle if exist as message info; otherwize show sourcePage info from message attributes
 - added: email icon if chat message is sent also via email
 - changed: default color submit button
@@ -430,7 +430,7 @@
 - changed: minor improvements on UI
 - changed: ion-split-pane UI if mobile
 - changed: moved hover 'add canned' button from bubble-message to ion-conversation-detail component
-- changed: moved addNewCanned to tiledesk service to canned-responses service
+- changed: moved addNewCanned to GPTMysite service to canned-responses service
 - bug-fixed: open/close detail icon not aligned correctly on click 'close'
 
 ### 3.0.79-rc.2

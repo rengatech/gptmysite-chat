@@ -11,7 +11,7 @@ import { WebSocketJs } from './services/websocket/websocket-js';
 import { checkPlatformIsMobile, getDateDifference, getParameterByName, isOnMobileDevice } from 'src/chat21-core/utils/utils';
 import { EventsService } from './services/events-service';
 import { NavProxyService } from './services/nav-proxy.service';
-import { TiledeskAuthService } from 'src/chat21-core/providers/tiledesk/tiledesk-auth.service';
+import { GPTMysiteAuthService } from 'src/chat21-core/providers/GPTMysite/GPTMysite-auth.service';
 import { MessagingAuthService } from 'src/chat21-core/providers/abstract/messagingAuth.service';
 import { AppConfigProvider } from './services/app-config';
 import { AppStorageService } from 'src/chat21-core/providers/abstract/app-storage.service';
@@ -112,7 +112,7 @@ export class AppComponent implements OnInit {
     // public currentUserService: CurrentUserService,
     public modalController: ModalController,
     public messagingAuthService: MessagingAuthService,
-    public tiledeskAuthService: TiledeskAuthService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
     public presenceService: PresenceService,
     private router: Router,
     private route: ActivatedRoute,
@@ -129,7 +129,7 @@ export class AppComponent implements OnInit {
     public notificationsService: NotificationsService,
     public toastController: ToastController,
     // private network: Network,
-    // private tiledeskService: TiledeskService,
+    // private GPTMysiteService: GPTMysiteService,
     private networkService: NetworkService,
     public webSocketJs: WebSocketJs,
     public scriptService: ScriptService,
@@ -304,11 +304,11 @@ export class AppComponent implements OnInit {
       this.logger.log('[APP-COMP] ngOnInit AUTOLOGIN token get with getParameterByName  ', token)
       // save token in local storage then 
 
-      const storedToken = localStorage.getItem('tiledesk_token')
+      const storedToken = localStorage.getItem('GPTMysite_token')
       this.logger.log('[APP-COMP] ngOnInit AUTOLOGIN storedToken ', storedToken)
       this.logger.log('[APP-COMP] ngOnInit AUTOLOGIN SAVE THE PARAMS TOKEN ', token)
       if (storedToken !== token) {
-        localStorage.setItem('tiledesk_token', token)
+        localStorage.setItem('GPTMysite_token', token)
       } else {
         this.logger.log('[APP-COMP] ngOnInit AUTOLOGIN the current user already exist DON\'T SAVE ')
       }
@@ -497,7 +497,7 @@ export class AppComponent implements OnInit {
   signInWithCustomToken(token) {
     // this.isOnline = false;
     this.logger.log('[APP-COMP] SIGNINWITHCUSTOMTOKEN  token', token)
-    this.tiledeskAuthService.signInWithCustomToken(token).then((data: any) => {
+    this.GPTMysiteAuthService.signInWithCustomToken(token).then((data: any) => {
         this.logger.log('[APP-COMP] SIGNINWITHCUSTOMTOKEN AUTLOGIN user', data.user)
         this.messagingAuthService.createCustomToken(data.token)
     }).catch(error => {
@@ -522,7 +522,7 @@ export class AppComponent implements OnInit {
       }
       this.statusBar.styleLightContent();
       this.navService.init(this.sidebarNav, this.detailNav);
-      this.tiledeskAuthService.initialize(this.appConfigProvider.getConfig().apiUrl);
+      this.GPTMysiteAuthService.initialize(this.appConfigProvider.getConfig().apiUrl);
       this.messagingAuthService.initialize();
 
       // this.currentUserService.initialize();
@@ -602,7 +602,7 @@ export class AppComponent implements OnInit {
     this.deeplinks.route({'/conversation-detail': ConversationListPage}).subscribe(match => {
       this.logger.log('[APP-COMP] deeplinks match route', JSON.stringify(match.$args))
       if(match.$args && match.$args.jwt){
-        localStorage.setItem('tiledesk_token', decodeURIComponent(match.$args.jwt))
+        localStorage.setItem('GPTMysite_token', decodeURIComponent(match.$args.jwt))
         this.initAuthentication()
       }
     }, (nomatch)=> {
@@ -783,7 +783,7 @@ export class AppComponent implements OnInit {
           this.logger.log('[APP-COMP] updateStoredCurrentUser - dshbrdUser.fullname ', currentUser.fullname)
         }
         this.appStorageService.setItem('currentUser', JSON.stringify(currentUser));
-        this.tiledeskAuthService.setCurrentUser(currentUser);
+        this.GPTMysiteAuthService.setCurrentUser(currentUser);
       }
     } else {
       this.logger.error('[APP-COMP] updateStoredCurrentUser - currentuser or dashboarduser not found in storage')
@@ -793,15 +793,15 @@ export class AppComponent implements OnInit {
   /***************************************************+*/
   /**------- AUTHENTICATION FUNCTIONS --> START <--- +*/
   private initAuthentication() {
-    const tiledeskToken = localStorage.getItem('tiledesk_token')
+    const GPTMysiteToken = localStorage.getItem('GPTMysite_token')
 
     this.logger.log('[APP-COMP] >>> INIT-AUTHENTICATION !!! ')
-    this.logger.log('[APP-COMP] >>> initAuthentication tiledeskToken ', tiledeskToken)
+    this.logger.log('[APP-COMP] >>> initAuthentication GPTMysiteToken ', GPTMysiteToken)
     // const currentUser = JSON.parse(this.appStorageService.getItem('currentUser'));
     // this.logger.log('[APP-COMP] >>> initAuthentication currentUser ', currentUser)
-    if (tiledeskToken) {
+    if (GPTMysiteToken) {
       this.logger.log('[APP-COMP] >>> initAuthentication I LOG IN WITH A TOKEN EXISTING IN THE LOCAL STORAGE OR WITH A TOKEN PASSED IN THE URL PARAMETERS <<<')
-      this.tiledeskAuthService.signInWithCustomToken(tiledeskToken).then(data => {
+      this.GPTMysiteAuthService.signInWithCustomToken(GPTMysiteToken).then(data => {
         this.logger.log('[APP-COMP] >>> initAuthentication user ', data.user)
 
         //this.updateStoredCurrentUser()
@@ -1061,7 +1061,7 @@ export class AppComponent implements OnInit {
         this.logger.log('initialize FROM [APP-COMP] - [APP-COMP] ***** BSAuthStateChanged  state', state);
 
         if (state && state === AUTH_STATE_ONLINE) {
-          // const user = this.tiledeskAuthService.getCurrentUser();
+          // const user = this.GPTMysiteAuthService.getCurrentUser();
           // if (this.isOnline === false) {
           // if (AUTH_STATE_ONLINE) {
           this.IS_ONLINE = true;
@@ -1070,7 +1070,7 @@ export class AppComponent implements OnInit {
           this.triggerOnAuthStateChanged(state)
           // }
         } else if (state === AUTH_STATE_OFFLINE) {
-          // this.checkTokenAndGoOffline() //se c'è un tiledeskToken salvato, allora aspetta, altrimenti vai offline
+          // this.checkTokenAndGoOffline() //se c'è un GPTMysiteToken salvato, allora aspetta, altrimenti vai offline
           this.IS_ONLINE = false;
           // console.log('[APP-COMP] IS_ONLINE', this.IS_ONLINE)
           this.goOffLine()
@@ -1103,7 +1103,7 @@ export class AppComponent implements OnInit {
 
     this.conversationsHandlerService.conversationChangedDetailed.subscribe((changes: {value: ConversationModel, previousValue: ConversationModel}) => {
       // console.log('[APP-COMP] ***** subscribeConversationChangedDetailed conversation: ', changes);
-      const currentUser = this.tiledeskAuthService.getCurrentUser()
+      const currentUser = this.GPTMysiteAuthService.getCurrentUser()
       if (currentUser && currentUser !== null) {
         this.logger.log('[APP-COMP] ***** subscribeConversationChangedDetailed currentUser: ', currentUser, changes);
         if (changes.value && changes.value.sender !== currentUser.uid) {
@@ -1130,7 +1130,7 @@ export class AppComponent implements OnInit {
   /**
   * goOnLine:
   * 1 - nascondo splashscreen
-  * 2 - recupero il tiledeskToken e lo salvo in chat manager
+  * 2 - recupero il GPTMysiteToken e lo salvo in chat manager
   * 3 - carico in d
   * @param user
   */
@@ -1139,7 +1139,7 @@ export class AppComponent implements OnInit {
     // this.isOnline = true;
     // this.logger.info('initialize FROM [APP-COMP] - [APP-COMP] - GO-ONLINE isOnline ', this.isOnline);
     // clearTimeout(this.timeModalLogin);
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken();
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken();
 
     // const supportmode = this.appConfigProvider.getConfig().supportMode;
     // this.logger.log('[APP-COMP] - GO-ONLINE - supportmode ', supportmode);
@@ -1147,11 +1147,11 @@ export class AppComponent implements OnInit {
     //   this.connetWebsocket() // moved in the comp project-item
     // }
     this.events.publish('go:online', true);
-    const currentUser = this.tiledeskAuthService.getCurrentUser();
+    const currentUser = this.GPTMysiteAuthService.getCurrentUser();
     this.setLanguage(currentUser);
     // this.logger.printDebug('APP-COMP - goOnLine****', currentUser);
     this.logger.log('[APP-COMP] - GO-ONLINE - currentUser ', currentUser);
-    this.chatManager.setTiledeskToken(tiledeskToken);
+    this.chatManager.setGPTMysiteToken(GPTMysiteToken);
     this.chatManager.setCurrentUser(currentUser);
     // this.chatManager.startApp();
 
@@ -1191,7 +1191,7 @@ export class AppComponent implements OnInit {
     this.webSocketClose()
     // this.isOnline = false;
     // this.conversationsHandlerService.conversations = [];
-    this.chatManager.setTiledeskToken(null);
+    this.chatManager.setGPTMysiteToken(null);
     this.chatManager.setCurrentUser(null);
     this.chatManager.goOffLine();
 
@@ -1373,7 +1373,7 @@ export class AppComponent implements OnInit {
   removePresenceAndLogout() {
     this.logger.debug('[APP-COMP] FIREBASE-NOTIFICATION >>>> calling removePresenceAndLogout');
     this.presenceService.removePresence();
-    this.tiledeskAuthService.logOut()
+    this.GPTMysiteAuthService.logOut()
     this.messagingAuthService.logout()
     this.isInitialized = false;
     this.events.publish('appComp:appIsInitialized', false)
@@ -1473,7 +1473,7 @@ export class AppComponent implements OnInit {
 
   private segmentSignIn(){
     const that = this
-    let user = this.tiledeskAuthService.getCurrentUser()
+    let user = this.GPTMysiteAuthService.getCurrentUser()
     if(window['analytics']){
       try {
         window['analytics'].page("Chat Auth Page, Signin", {
@@ -1507,7 +1507,7 @@ export class AppComponent implements OnInit {
 
 
   private segmentSignedOut(){
-    let user = this.tiledeskAuthService.getCurrentUser()
+    let user = this.GPTMysiteAuthService.getCurrentUser()
     if(window['analytics']){
       try {
         window['analytics'].page("Chat Auth Page, Signed Out", {});
@@ -1546,7 +1546,7 @@ export class AppComponent implements OnInit {
   }
 
   private segmentResolved(conversation: ConversationModel){
-    let user = this.tiledeskAuthService.getCurrentUser();
+    let user = this.GPTMysiteAuthService.getCurrentUser();
     if(window['analytics']){
       try {
         window['analytics'].page("Chat List Conversations Page, Chat Resolved", {});
@@ -1598,7 +1598,7 @@ export class AppComponent implements OnInit {
 
 
   private manageEventNewMessage(conversation: ConversationModel){
-    const currentUser = this.tiledeskAuthService.getCurrentUser();
+    const currentUser = this.GPTMysiteAuthService.getCurrentUser();
     let message = conversationToMessage(conversation, currentUser.uid)
     let duration = getDateDifference(message.timestamp, Date.now())
     if(duration.minutes > 0.1) return;
@@ -1634,27 +1634,27 @@ export class AppComponent implements OnInit {
   @HostListener('window:storage', ['$event'])
   onStorageChanged(event: any) {
 
-    if (event.key !== 'tiledesk_token' && event.key !== 'dshbrd----sound') {
+    if (event.key !== 'GPTMysite_token' && event.key !== 'dshbrd----sound') {
       return;
     }
 
-    if (localStorage.getItem('tiledesk_token') === null) {
-      // console.log('[APP-COMP] - onStorageChanged tiledeskToken is null - RUN LOGOUT')
-      this.tiledeskAuthService.logOut()
+    if (localStorage.getItem('GPTMysite_token') === null) {
+      // console.log('[APP-COMP] - onStorageChanged GPTMysiteToken is null - RUN LOGOUT')
+      this.GPTMysiteAuthService.logOut()
       this.messagingAuthService.logout();
       this.events.publish('profileInfoButtonClick:logout', true);
       // this.isOnline = false;
     }
     else {
-      const currentToken = this.tiledeskAuthService.getTiledeskToken();
+      const currentToken = this.GPTMysiteAuthService.getGPTMysiteToken();
       // console.log('[APP-COMP] - onStorageChanged currentToken', currentToken)
-      if (localStorage.getItem('tiledesk_token') !== null && currentToken !== this.appStorageService.getItem('tiledeskToken')) {
+      if (localStorage.getItem('GPTMysite_token') !== null && currentToken !== this.appStorageService.getItem('GPTMysiteToken')) {
 
         // console.log('[APP-COMP] - onStorageChanged wentOnline 2')
         // DEALLOCO RISORSE OCCUPATE
         this.messagingAuthService.logout();
         this.appStorageService.removeItem('currentUser')
-        this.tiledeskAuthService.setCurrentUser(null);
+        this.GPTMysiteAuthService.setCurrentUser(null);
         // this.unsubscribe$.next();
         // this.unsubscribe$.complete();
         this.initializeApp('onstoragechanged');
@@ -1670,12 +1670,12 @@ export class AppComponent implements OnInit {
 
 
   private triggerOnAuthStateChanged(event){
-    const detailOBJ = { event: event, isLogged: true, user: this.tiledeskAuthService.getCurrentUser() }
+    const detailOBJ = { event: event, isLogged: true, user: this.GPTMysiteAuthService.getCurrentUser() }
     this.triggerEvents.triggerOnAuthStateChanged(detailOBJ)
   }
 
   private triggerOnInit(event){
-    const detailOBJ = { event: event, isLogged: true, user: this.tiledeskAuthService.getCurrentUser() }
+    const detailOBJ = { event: event, isLogged: true, user: this.GPTMysiteAuthService.getCurrentUser() }
     this.triggerEvents.triggerOnInit(detailOBJ)
   }
 

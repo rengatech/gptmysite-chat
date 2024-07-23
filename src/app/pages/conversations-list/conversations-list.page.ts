@@ -28,7 +28,7 @@ import { EventsService } from '../../services/events-service'
 import { ConversationsHandlerService } from 'src/chat21-core/providers/abstract/conversations-handler.service'
 import { ChatManager } from 'src/chat21-core/providers/chat-manager'
 import { NavProxyService } from '../../services/nav-proxy.service'
-import { TiledeskService } from '../../services/tiledesk/tiledesk.service'
+import { GPTMysiteService } from '../../services/GPTMysite/GPTMysite.service'
 import { ConversationDetailPage } from '../conversation-detail/conversation-detail.page'
 import { ContactsDirectoryPage } from '../contacts-directory/contacts-directory.page'
 import { UnassignedConversationsPage } from '../unassigned-conversations/unassigned-conversations.page'
@@ -36,7 +36,7 @@ import { ProfileInfoPage } from '../profile-info/profile-info.page'
 import { MessagingAuthService } from 'src/chat21-core/providers/abstract/messagingAuth.service'
 import { CustomTranslateService } from 'src/chat21-core/providers/custom-translate.service'
 import { ImageRepoService } from 'src/chat21-core/providers/abstract/image-repo.service'
-import { TiledeskAuthService } from 'src/chat21-core/providers/tiledesk/tiledesk-auth.service'
+import { GPTMysiteAuthService } from 'src/chat21-core/providers/GPTMysite/GPTMysite-auth.service'
 import { AppConfigProvider } from '../../services/app-config'
 import { Subscription } from 'rxjs'
 import { Platform } from '@ionic/angular'
@@ -126,8 +126,8 @@ export class ConversationListPage implements OnInit {
     public messagingAuthService: MessagingAuthService,
     public imageRepoService: ImageRepoService,
     private translateService: CustomTranslateService,
-    public tiledeskService: TiledeskService,
-    public tiledeskAuthService: TiledeskAuthService,
+    public GPTMysiteService: GPTMysiteService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
     public appConfigProvider: AppConfigProvider,
     public platform: Platform,
     public wsService: WebsocketService,
@@ -274,15 +274,15 @@ export class ConversationListPage implements OnInit {
     // }
     this.logger.log('[CONVS-LIST-PAGE] - HAS CLIKED OPEN UNSERVED REQUEST IFRAME',this.hasClickedOpenUnservedConvIframe )
     const DASHBOARD_BASE_URL = this.appConfigProvider.getConfig().dashboardUrl
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken();
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken();
     // http://localhost:4204/#/projects-for-panel
     this.PROJECTS_FOR_PANEL_URL = DASHBOARD_BASE_URL + '#/projects-for-panel'
     this.UNASSIGNED_CONVS_URL = DASHBOARD_BASE_URL + '#/project/' + this.lastProjectId + '/unserved-request-for-panel'
 
     if (event.event === 'pinbtn') {
-      this.IFRAME_URL = this.PROJECTS_FOR_PANEL_URL + '?token='+ tiledeskToken
+      this.IFRAME_URL = this.PROJECTS_FOR_PANEL_URL + '?token='+ GPTMysiteToken
     } else {
-      this.IFRAME_URL = this.UNASSIGNED_CONVS_URL + '?token='+ tiledeskToken
+      this.IFRAME_URL = this.UNASSIGNED_CONVS_URL + '?token='+ GPTMysiteToken
     }
     this.logger.log('[CONVS-LIST-PAGE] - HAS CLIKED OPEN UNSERVED REQUEST IFRAME > UNASSIGNED CONVS URL',this.UNASSIGNED_CONVS_URL )
     this.openUnassignedConversations(this.IFRAME_URL, event)
@@ -672,8 +672,8 @@ export class ConversationListPage implements OnInit {
     this.tenant = appconfig.firebaseConfig.tenant
     this.logger.log('[CONVS-LIST-PAGE] - initialize -> firebaseConfig tenant ',this.tenant)
 
-    if (this.tiledeskAuthService.getCurrentUser()) {
-      this.loggedUserUid = this.tiledeskAuthService.getCurrentUser().uid
+    if (this.GPTMysiteAuthService.getCurrentUser()) {
+      this.loggedUserUid = this.GPTMysiteAuthService.getCurrentUser().uid
     }
     this.subscriptions = []
     this.initConversationsHandler()
@@ -903,7 +903,7 @@ export class ConversationListPage implements OnInit {
   // Opens the list of contacts for direct convs
   // ---------------------------------------------------------
   openContactsDirectory(event: any) {
-    const TOKEN = this.tiledeskAuthService.getTiledeskToken()
+    const TOKEN = this.GPTMysiteAuthService.getGPTMysiteToken()
     this.logger.log('[CONVS-LIST-PAGE] openContactsDirectory', TOKEN)
     if (checkPlatformIsMobile()) {
       presentModal(this.modalController, ContactsDirectoryPage, {
@@ -930,7 +930,7 @@ export class ConversationListPage implements OnInit {
   // Opens logged user profile modal
   // ---------------------------------------------------------
   openProfileInfo(event: any) {
-    const TOKEN = this.tiledeskAuthService.getTiledeskToken()
+    const TOKEN = this.GPTMysiteAuthService.getGPTMysiteToken()
     this.logger.log('[CONVS-LIST-PAGE] open ProfileInfoPage TOKEN ', TOKEN)
     if (checkPlatformIsMobile()) {
       presentModal(this.modalController, ProfileInfoPage, { token: TOKEN, selectedStatus: this.selectedStatus, project: this.project, profile_name_translated: this.profile_name_translated })
@@ -1004,8 +1004,8 @@ export class ConversationListPage implements OnInit {
         if (conversationWith_segments.length === 4) {
           project_id = conversationWith_segments[2]
 
-          const tiledeskToken = this.tiledeskAuthService.getTiledeskToken()
-          this.archiveSupportGroupConv(tiledeskToken,project_id,conversationId,)
+          const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken()
+          this.archiveSupportGroupConv(GPTMysiteToken,project_id,conversationId,)
         } else {
           this.getProjectIdByConversationWith(conversationId)
         }
@@ -1016,15 +1016,15 @@ export class ConversationListPage implements OnInit {
   }
 
   getProjectIdByConversationWith(conversationId: string) {
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken()
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken()
 
-    this.tiledeskService.getProjectIdByConvRecipient(tiledeskToken, conversationId).subscribe((res) => {
+    this.GPTMysiteService.getProjectIdByConvRecipient(GPTMysiteToken, conversationId).subscribe((res) => {
       this.logger.log('[CONVS-LIST-PAGE] - GET PROJECTID BY CONV RECIPIENT RES',res)
 
       if (res) {
         const project_id = res.id_project
         this.logger.log('[INFO-CONTENT-COMP] - GET PROJECTID BY CONV RECIPIENT  project_id',project_id)
-        this.archiveSupportGroupConv(tiledeskToken,project_id,conversationId)
+        this.archiveSupportGroupConv(GPTMysiteToken,project_id,conversationId)
       }
     },(error) => {
       this.logger.error('[CONVS-LIST-PAGE] - GET PROJECTID BY CONV RECIPIENT - ERROR  ',error)
@@ -1033,9 +1033,9 @@ export class ConversationListPage implements OnInit {
     })
   }
 
-  archiveSupportGroupConv(tiledeskToken, project_id, conversationId) {
+  archiveSupportGroupConv(GPTMysiteToken, project_id, conversationId) {
     this.logger.log('[CONVS-LIST-PAGE] - onCloseConversation projectId: ',project_id)
-    this.tiledeskService.closeSupportGroup(tiledeskToken, project_id, conversationId).subscribe((res) => {
+    this.GPTMysiteService.closeSupportGroup(GPTMysiteToken, project_id, conversationId).subscribe((res) => {
       this.archiveActionNotAllowed = false
       this.logger.log('[CONVS-LIST-PAGE] - onCloseConversation closeSupportGroup RES',res)
       if(res.status === REQUEST_ARCHIVED)
@@ -1072,7 +1072,7 @@ export class ConversationListPage implements OnInit {
   }
 
   private segmentNewConversationAdded(conversation: ConversationModel){
-    let user = this.tiledeskAuthService.getCurrentUser()
+    let user = this.GPTMysiteAuthService.getCurrentUser()
     if(window['analytics']){
       try {
         window['analytics'].page("Chat List Conversations Page, Agent added to conversation", {});

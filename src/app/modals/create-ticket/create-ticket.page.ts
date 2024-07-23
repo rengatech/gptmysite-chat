@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ModalController } from '@ionic/angular'
-import { TiledeskAuthService } from 'src/chat21-core/providers/tiledesk/tiledesk-auth.service'
-import { TiledeskService } from '../../services/tiledesk/tiledesk.service'
+import { GPTMysiteAuthService } from 'src/chat21-core/providers/GPTMysite/GPTMysite-auth.service'
+import { GPTMysiteService } from '../../services/GPTMysite/GPTMysite.service'
 import { zip } from 'rxjs'
 import { AppConfigProvider } from 'src/app/services/app-config'
 import { CreateRequesterPage } from 'src/app/pages/create-requester/create-requester.page'
@@ -23,7 +23,7 @@ export class CreateTicketPage implements OnInit {
   loadingAssignee: boolean = true;
   loadingRequesters: boolean = true;
   prjctID: string;
-  tiledeskToken: string;
+  GPTMysiteToken: string;
   selectedRequester: any;
   storageBucket: string;
   baseUrl: string;
@@ -65,8 +65,8 @@ export class CreateTicketPage implements OnInit {
   logger: LoggerService = LoggerInstance.getInstance();
   constructor(
     public modalController: ModalController,
-    public tiledeskService: TiledeskService,
-    public tiledeskAuthService: TiledeskAuthService,
+    public GPTMysiteService: GPTMysiteService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
     public appConfigProvider: AppConfigProvider,
     public events: EventsService
   ) {}
@@ -85,11 +85,11 @@ export class CreateTicketPage implements OnInit {
       this.prjctID = storedPrjctObjct.id_project.id
       this.logger.log('[CREATE-TICKET] this.prjctID ', this.prjctID)
     }
-    this.tiledeskToken = this.tiledeskAuthService.getTiledeskToken()
-    this.logger.log('[CREATE-TICKET] tiledeskToken ', this.tiledeskToken)
+    this.GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken()
+    this.logger.log('[CREATE-TICKET] GPTMysiteToken ', this.GPTMysiteToken)
 
-    this.getProjectUsersAndContacts(this.prjctID, this.tiledeskToken)
-    this.getProjectUserBotsAndDepts(this.prjctID, this.tiledeskToken)
+    this.getProjectUsersAndContacts(this.prjctID, this.GPTMysiteToken)
+    this.getProjectUserBotsAndDepts(this.prjctID, this.GPTMysiteToken)
   }
 
   getUploadEngine() {
@@ -108,14 +108,14 @@ export class CreateTicketPage implements OnInit {
   // -------------------------------------------------------------------------------------------
   // Create the array of the project-users and contacts displayed in the combo box  "Requester"
   // -------------------------------------------------------------------------------------------
-  getProjectUsersAndContacts(projctid: string, tiledesktoken: string) {
-    const projectUsers = this.tiledeskService.getProjectUsersByProjectId(
+  getProjectUsersAndContacts(projctid: string, GPTMysitetoken: string) {
+    const projectUsers = this.GPTMysiteService.getProjectUsersByProjectId(
       projctid,
-      tiledesktoken,
+      GPTMysitetoken,
     )
-    const leads = this.tiledeskService.getAllLeadsActiveWithLimit(
+    const leads = this.GPTMysiteService.getAllLeadsActiveWithLimit(
       projctid,
-      tiledesktoken,
+      GPTMysitetoken,
       10000,
     )
 
@@ -253,11 +253,11 @@ export class CreateTicketPage implements OnInit {
   // -------------------------------------------------------------------------------------------------------------------
   // Create the array of the project-users, the bots and of the departments displayed in the combo box "Select Assignee"
   // -------------------------------------------------------------------------------------------------------------------
-  getProjectUserBotsAndDepts(projctid: string, tiledesktoken: string) {
+  getProjectUserBotsAndDepts(projctid: string, GPTMysitetoken: string) {
     // this.loadingAssignee = true;
-    const projectUsers = this.tiledeskService.getProjectUsersByProjectId( projctid, tiledesktoken)
-    const bots = this.tiledeskService.getAllBotByProjectId(projctid, tiledesktoken)
-    const depts = this.tiledeskService.getDeptsByProjectId(projctid, tiledesktoken)
+    const projectUsers = this.GPTMysiteService.getProjectUsersByProjectId( projctid, GPTMysitetoken)
+    const bots = this.GPTMysiteService.getAllBotByProjectId(projctid, GPTMysitetoken)
+    const depts = this.GPTMysiteService.getDeptsByProjectId(projctid, GPTMysitetoken)
 
     zip(projectUsers, bots, depts).subscribe(
       ([_prjctUsers, _bots, _depts]) => {
@@ -354,7 +354,7 @@ export class CreateTicketPage implements OnInit {
       this.internal_request_id = 'support-group-' + this.prjctID + '-' + uiid_no_dashes
       this.logger.log('[WS-REQUESTS-LIST] create internalRequest - internal_request_id', this.internal_request_id);
       // (request_id:string, subject: string, message:string, departmentid: string)
-      this.tiledeskService.createInternalRequest(this.selectedRequester,
+      this.GPTMysiteService.createInternalRequest(this.selectedRequester,
         this.internal_request_id,
         this.ticket_subject,
         this.ticket_message,
@@ -362,7 +362,7 @@ export class CreateTicketPage implements OnInit {
         this.assignee_participants_id,
         this.selectedPriority,
         this.prjctID,
-        this.tiledeskToken
+        this.GPTMysiteToken
       ).subscribe((newticket: any) => {
         this.logger.log('[WS-REQUESTS-LIST] create internalRequest - RES ', newticket);
 

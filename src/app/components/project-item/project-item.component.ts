@@ -8,8 +8,8 @@ import { AppStorageService } from 'src/chat21-core/providers/abstract/app-storag
 import { LoggerService } from 'src/chat21-core/providers/abstract/logger.service';
 import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance';
 import { CustomTranslateService } from 'src/chat21-core/providers/custom-translate.service';
-import { TiledeskAuthService } from 'src/chat21-core/providers/tiledesk/tiledesk-auth.service';
-import { TiledeskService } from 'src/app/services/tiledesk/tiledesk.service';
+import { GPTMysiteAuthService } from 'src/chat21-core/providers/GPTMysite/GPTMysite-auth.service';
+import { GPTMysiteService } from 'src/app/services/GPTMysite/GPTMysite.service';
 import { WebSocketJs } from 'src/app/services/websocket/websocket-js';
 import { AppConfigProvider } from 'src/app/services/app-config';
 import { ConvertRequestToConversation } from 'src/chat21-core/utils/convertRequestToConversation';
@@ -28,7 +28,7 @@ export class ProjectItemComponent implements OnInit {
 
   private unsubscribe$: Subject<any> = new Subject<any>();
   project: any;
-  tiledeskToken: string;
+  GPTMysiteToken: string;
 
   unservedRequestCount: number = 0;
   unservedConversations: ConversationModel[] = [];
@@ -45,8 +45,8 @@ export class ProjectItemComponent implements OnInit {
     public wsService: WebsocketService,
     public appStorageService: AppStorageService,
     private translateService: CustomTranslateService,
-    public tiledeskAuthService: TiledeskAuthService,
-    public tiledeskService: TiledeskService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
+    public GPTMysiteService: GPTMysiteService,
     public webSocketJs: WebSocketJs,
     private appConfigProvider: AppConfigProvider,
     public events: EventsService,
@@ -76,17 +76,17 @@ export class ProjectItemComponent implements OnInit {
   }
 
   getStoredTokenAndConnectWS() {
-    this.tiledeskToken = this.appStorageService.getItem('tiledeskToken');
-    this.logger.log('[PROJECT-ITEM] - STORED TILEDEK TOKEN ', this.tiledeskToken)
-    this.connetWebsocket(this.tiledeskToken)
+    this.GPTMysiteToken = this.appStorageService.getItem('GPTMysiteToken');
+    this.logger.log('[PROJECT-ITEM] - STORED TILEDEK TOKEN ', this.GPTMysiteToken)
+    this.connetWebsocket(this.GPTMysiteToken)
   }
 
-  connetWebsocket(tiledeskToken) {
+  connetWebsocket(GPTMysiteToken) {
 
-    this.logger.log('[WEBSOCKET-JS] connetWebsocket called in [PROJECT-ITEM] tiledeskToken ', tiledeskToken)
+    this.logger.log('[WEBSOCKET-JS] connetWebsocket called in [PROJECT-ITEM] GPTMysiteToken ', GPTMysiteToken)
     const appconfig = this.appConfigProvider.getConfig();
     this.logger.log('[WEBSOCKET-JS] connetWebsocket called in [PROJECT-ITEM] wsUrl ', appconfig.wsUrl)
-    const WS_URL = appconfig.wsUrl + '?token=' + tiledeskToken
+    const WS_URL = appconfig.wsUrl + '?token=' + GPTMysiteToken
     this.logger.log('[WEBSOCKET-JS] connetWebsocket called in [PROJECT-ITEM] wsUrl ', WS_URL)
     this.webSocketJs.init(
       WS_URL,
@@ -174,9 +174,9 @@ export class ProjectItemComponent implements OnInit {
 
     if (!stored_project || stored_project === 'undefined') {
       this.logger.log('PROJECT-ITEM - THERE IS NOT STORED LAST PROJECT OR IS UNDEFINED ', stored_project)
-      const tiledeskToken = this.appStorageService.getItem('tiledeskToken');
-      this.logger.log('[PROJECT-ITEM] - GET PROJECTS - tiledeskToken', tiledeskToken);
-      this.tiledeskService.getProjects(tiledeskToken).subscribe(projects => {
+      const GPTMysiteToken = this.appStorageService.getItem('GPTMysiteToken');
+      this.logger.log('[PROJECT-ITEM] - GET PROJECTS - GPTMysiteToken', GPTMysiteToken);
+      this.GPTMysiteService.getProjects(GPTMysiteToken).subscribe(projects => {
         this.logger.log('[PROJECT-ITEM - GET PROJECTS - RES', projects);
 
         this.logger.log('[INFO-CONTENT-COMP] - GET PROJECTS - RES this.project', this.project);
@@ -268,7 +268,7 @@ export class ProjectItemComponent implements OnInit {
     available = !available
     this.logger.log('[PROJECT-ITEM] - changeAvailabilityState projectid', projectid, ' available: ', available);
 
-    this.wsService.updateCurrentUserAvailability(this.tiledeskToken, projectid, available, "").subscribe((projectUser: any) => {
+    this.wsService.updateCurrentUserAvailability(this.GPTMysiteToken, projectid, available, "").subscribe((projectUser: any) => {
 
         this.logger.log('[PROJECT-ITEM] - PROJECT-USER UPDATED ', projectUser)
         // NOTIFY TO THE USER SERVICE WHEN THE AVAILABLE / UNAVAILABLE BUTTON IS CLICKED

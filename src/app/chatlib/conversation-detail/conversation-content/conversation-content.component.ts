@@ -6,7 +6,7 @@ import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance'
 import { UploadService } from 'src/chat21-core/providers/abstract/upload.service';
 import { isEmojii, isFirstMessage, isInfo, isLastMessage, isMine, isSameSender, messageType } from 'src/chat21-core/utils/utils-message';
 @Component({
-  selector: 'tiledeskwidget-conversation-content',
+  selector: 'GPTMysitewidget-conversation-content',
   templateUrl: './conversation-content.component.html',
   styleUrls: ['./conversation-content.component.scss']
 })
@@ -58,7 +58,7 @@ export class ConversationContentComponent implements OnInit {
   MESSAGE_TYPE_OTHERS = MESSAGE_TYPE_OTHERS;
   // ========== end:: check message type functions ======= //
 
-  urlBOTImage = 'https://s3.eu-west-1.amazonaws.com/tiledesk-widget/dev/2.0.4-beta.7/assets/images/avatar_bot_tiledesk.svg'
+  urlBOTImage = 'https://s3.eu-west-1.amazonaws.com/GPTMysite-widget/dev/2.0.4-beta.7/assets/images/avatar_bot_GPTMysite.svg'
   uploadProgress: number;
   showUploadProgress: boolean = false;
   fileType: string;
@@ -249,7 +249,7 @@ export class ConversationContentComponent implements OnInit {
   }
 
   onBeforeMessageRenderFN(event) {
-    //decommentare se in html c'è solamente component tiledesk-text
+    //decommentare se in html c'è solamente component GPTMysite-text
     //const messageOBJ = { message: this.message, sanitizer: this.sanitizer, messageEl: event.messageEl, component: event.component}
     this.onBeforeMessageRender.emit(event)
   }

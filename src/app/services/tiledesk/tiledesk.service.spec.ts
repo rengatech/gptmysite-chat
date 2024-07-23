@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TiledeskService } from './tiledesk.service';
+import { GPTMysiteService } from './GPTMysite.service';
 
-describe('TiledeskService', () => {
+describe('GPTMysiteService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: TiledeskService = TestBed.get(TiledeskService);
+    const service: GPTMysiteService = TestBed.get(GPTMysiteService);
     expect(service).toBeTruthy();
   });
 });

@@ -1,4 +1,4 @@
-import { TiledeskService } from 'src/app/services/tiledesk/tiledesk.service';
+import { GPTMysiteService } from 'src/app/services/GPTMysite/GPTMysite.service';
 import { SendEmailModal } from './../../../modals/send-email/send-email.page';
 import { SendWhatsappTemplateModal } from './../../../modals/send-whatsapp-template/send-whatsapp-template.page';
 import { UserModel } from 'src/chat21-core/models/user';
@@ -93,7 +93,7 @@ export class MessageTextAreaComponent implements OnInit, AfterViewInit, OnChange
       text: 'ee',
       emoticons: [],
       keywords: ['github'],
-      imageUrl: 'https://tiledesk.com/wp-content/uploads/2022/11/Customer-Service.png',
+      imageUrl: 'https://GPTMysite.com/wp-content/uploads/2022/11/Customer-Service.png',
     },
     {
       name: 'Octocat',
@@ -101,7 +101,7 @@ export class MessageTextAreaComponent implements OnInit, AfterViewInit, OnChange
       text: 'rr',
       emoticons: [],
       keywords: ['github'],
-      imageUrl: 'https://tiledesk.com/wp-content/uploads/2022/11/FAQ-Chatbot.png',
+      imageUrl: 'https://GPTMysite.com/wp-content/uploads/2022/11/FAQ-Chatbot.png',
     }
   ];
   /**

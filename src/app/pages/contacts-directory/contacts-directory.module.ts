@@ -10,12 +10,12 @@ import { ContactsDirectoryComponent } from '../../components/contacts-directory/
 
 import { ContactsDirectoryPage } from './contacts-directory.page';
 // import { ContactsDirectoryService } from '../../services/contacts-directory.service';
-// import { TiledeskContactsDirectoryService } from '../../services/tiledesk/tiledesk-contacts-directory.service';
+// import { GPTMysiteContactsDirectoryService } from '../../services/GPTMysite/GPTMysite-contacts-directory.service';
 
 
 // export function contactsFactory(http: HttpClient) {
 //   console.log('contactsFactory: ');
-//   return new TiledeskContactsDirectoryService(http);
+//   return new GPTMysiteContactsDirectoryService(http);
 // }
 
 

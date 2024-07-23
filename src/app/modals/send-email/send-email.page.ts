@@ -1,5 +1,5 @@
-import { TiledeskAuthService } from 'src/chat21-core/providers/tiledesk/tiledesk-auth.service';
-import { TiledeskService } from 'src/app/services/tiledesk/tiledesk.service';
+import { GPTMysiteAuthService } from 'src/chat21-core/providers/GPTMysite/GPTMysite-auth.service';
+import { GPTMysiteService } from 'src/app/services/GPTMysite/GPTMysite.service';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
@@ -33,8 +33,8 @@ export class SendEmailModal implements OnInit {
   constructor(
     public viewCtrl: ModalController,
     private formBuilder: FormBuilder,
-    private tiledeskService: TiledeskService,
-    private tiledeskAuthService: TiledeskAuthService,
+    private GPTMysiteService: GPTMysiteService,
+    private GPTMysiteAuthService: GPTMysiteAuthService,
     private toastController: ToastController
   ) { }
 
@@ -81,8 +81,8 @@ export class SendEmailModal implements OnInit {
 
   onSubmit(){
     this.logger.log('[SEND-EMAIL-MODAL] onSubmit -->',this.emailFormGroup)
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken()
-    this.tiledeskService.sendEmail(tiledeskToken, this.projectId, this.conversationWith, this.emailFormGroup.value).subscribe((res)=> {
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken()
+    this.GPTMysiteService.sendEmail(GPTMysiteToken, this.projectId, this.conversationWith, this.emailFormGroup.value).subscribe((res)=> {
       this.logger.debug('[SEND-EMAIL-MODAL] subscribe to sendEmail API response -->', res)
       if(res && res.queued){
         this.viewCtrl.dismiss({form: this.emailFormGroup.value})

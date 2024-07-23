@@ -13,17 +13,17 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class TiledeskAuthService {
+export class GPTMysiteAuthService {
 
   // private persistence: string;
   public SERVER_BASE_URL: string;
 
   // private
-  private URL_TILEDESK_SIGNIN: string;
-  private URL_TILEDESK_SIGNIN_ANONYMOUSLY: string;
-  private URL_TILEDESK_SIGNIN_WITH_CUSTOM_TOKEN: string;
+  private URL_GPTMysite_SIGNIN: string;
+  private URL_GPTMysite_SIGNIN_ANONYMOUSLY: string;
+  private URL_GPTMysite_SIGNIN_WITH_CUSTOM_TOKEN: string;
 
-  private tiledeskToken: string;
+  private GPTMysiteToken: string;
   private currentUser: UserModel;
   private logger: LoggerService = LoggerInstance.getInstance()
 
@@ -37,11 +37,11 @@ export class TiledeskAuthService {
 
 
   initialize(serverBaseUrl: string) {
-    this.logger.log('[TILEDESK-AUTH-SERV] - initialize serverBaseUrl', serverBaseUrl);
+    this.logger.log('[GPTMysite-AUTH-SERV] - initialize serverBaseUrl', serverBaseUrl);
     this.SERVER_BASE_URL = serverBaseUrl;
-    this.URL_TILEDESK_SIGNIN = this.SERVER_BASE_URL + 'auth/signin';
-    this.URL_TILEDESK_SIGNIN_ANONYMOUSLY = this.SERVER_BASE_URL + 'auth/signinAnonymously'
-    this.URL_TILEDESK_SIGNIN_WITH_CUSTOM_TOKEN = this.SERVER_BASE_URL + 'auth/signinWithCustomToken';
+    this.URL_GPTMysite_SIGNIN = this.SERVER_BASE_URL + 'auth/signin';
+    this.URL_GPTMysite_SIGNIN_ANONYMOUSLY = this.SERVER_BASE_URL + 'auth/signinAnonymously'
+    this.URL_GPTMysite_SIGNIN_WITH_CUSTOM_TOKEN = this.SERVER_BASE_URL + 'auth/signinWithCustomToken';
   }
 
 
@@ -50,7 +50,7 @@ export class TiledeskAuthService {
    * @param password
    */
   signInWithEmailAndPassword(email: string, password: string): Promise<string> {
-    this.logger.log('[TILEDESK-AUTH-SERV] - signInWithEmailAndPassword', email, password);
+    this.logger.log('[GPTMysite-AUTH-SERV] - signInWithEmailAndPassword', email, password);
     const httpHeaders = new HttpHeaders();
 
     httpHeaders.append('Accept', 'application/json');
@@ -62,13 +62,13 @@ export class TiledeskAuthService {
     };
     const that = this;
     return new Promise((resolve, reject) => {
-      this.http.post(this.URL_TILEDESK_SIGNIN, postData, requestOptions).subscribe((data) => {
+      this.http.post(this.URL_GPTMysite_SIGNIN, postData, requestOptions).subscribe((data) => {
         if (data['success'] && data['token']) {
-          that.tiledeskToken = data['token'];
+          that.GPTMysiteToken = data['token'];
           that.createCompleteUser(data['user']);
-          this.checkAndSetInStorageTiledeskToken(that.tiledeskToken)
+          this.checkAndSetInStorageGPTMysiteToken(that.GPTMysiteToken)
           this.BS_IsONLINE.next(true)
-          resolve(that.tiledeskToken)
+          resolve(that.GPTMysiteToken)
         }
       }, (error) => {
         reject(error)
@@ -81,7 +81,7 @@ export class TiledeskAuthService {
    * @param projectID
    */
   signInAnonymously(projectID: string): Promise<any> {
-    this.logger.debug('[TILEDESK-AUTH] - signInAnonymously - projectID', projectID);
+    this.logger.debug('[GPTMysite-AUTH] - signInAnonymously - projectID', projectID);
     const httpHeaders = new HttpHeaders();
 
     httpHeaders.append('Accept', 'application/json');
@@ -92,13 +92,13 @@ export class TiledeskAuthService {
     };
     const that = this;
     return new Promise((resolve, reject) => {
-      this.http.post(this.URL_TILEDESK_SIGNIN_ANONYMOUSLY, postData, requestOptions).subscribe((data) => {
+      this.http.post(this.URL_GPTMysite_SIGNIN_ANONYMOUSLY, postData, requestOptions).subscribe((data) => {
         if (data['success'] && data['token']) {
-          that.tiledeskToken = data['token'];
+          that.GPTMysiteToken = data['token'];
           that.createCompleteUser(data['user']);
-          this.checkAndSetInStorageTiledeskToken(that.tiledeskToken)
+          this.checkAndSetInStorageGPTMysiteToken(that.GPTMysiteToken)
           this.BS_IsONLINE.next(true)
-          resolve(that.tiledeskToken)
+          resolve(that.GPTMysiteToken)
         }
       }, (error) => {
         reject(error)
@@ -108,21 +108,21 @@ export class TiledeskAuthService {
   }
 
   /**
-   * @param tiledeskToken
+   * @param GPTMysiteToken
    */
-  signInWithCustomToken(tiledeskToken: string): Promise<any> {
+  signInWithCustomToken(GPTMysiteToken: string): Promise<any> {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
-      Authorization: tiledeskToken
+      Authorization: GPTMysiteToken
     });
     const requestOptions = { headers: headers };
     const that = this;
     return new Promise((resolve, reject) => {
-      this.http.post(this.URL_TILEDESK_SIGNIN_WITH_CUSTOM_TOKEN, null, requestOptions).subscribe((data) => {
+      this.http.post(this.URL_GPTMysite_SIGNIN_WITH_CUSTOM_TOKEN, null, requestOptions).subscribe((data) => {
         if (data['success'] && data['token']) {
-          that.tiledeskToken = data['token'];
+          that.GPTMysiteToken = data['token'];
           that.createCompleteUser(data['user']);
-          this.checkAndSetInStorageTiledeskToken(that.tiledeskToken)
+          this.checkAndSetInStorageGPTMysiteToken(that.GPTMysiteToken)
           this.BS_IsONLINE.next(true)
           resolve(data)
         }
@@ -133,13 +133,13 @@ export class TiledeskAuthService {
   }
 
   logOut() {
-    this.logger.log('[TILEDESK-AUTH] - LOGOUT')
-    this.appStorage.removeItem('tiledeskToken')
+    this.logger.log('[GPTMysite-AUTH] - LOGOUT')
+    this.appStorage.removeItem('GPTMysiteToken')
     this.appStorage.removeItem('currentUser')
-    localStorage.removeItem('tiledesk_token')
+    localStorage.removeItem('GPTMysite_token')
     this.BS_IsONLINE.next(false)
     this.setCurrentUser(null);
-    this.setTiledeskToken(null);
+    this.setGPTMysiteToken(null);
     // this.isOnline$.next(false) 
     const stored_project = localStorage.getItem('last_project')
     if (stored_project) {
@@ -175,29 +175,29 @@ export class TiledeskAuthService {
       member.avatar = avatar;
       member.color = color;
       this.currentUser = member;
-      this.logger.log('[TILEDESK-AUTH] - createCompleteUser member ', member);
+      this.logger.log('[GPTMysite-AUTH] - createCompleteUser member ', member);
       this.appStorage.setItem('currentUser', JSON.stringify(this.currentUser));
 
     } catch (err) {
-      this.logger.error('[TILEDESK-AUTH]- createCompleteUser ERR ', err)
+      this.logger.error('[GPTMysite-AUTH]- createCompleteUser ERR ', err)
     }
   }
 
 
-  private checkAndSetInStorageTiledeskToken(tiledeskToken) {
-    this.logger.log('[TILEDESK-AUTH] - checkAndSetInStorageTiledeskToken tiledeskToken from request', tiledeskToken)
-    const storedTiledeskToken = localStorage.getItem('tiledesk_token');
-    this.logger.log('[TILEDESK-AUTH] - checkAndSetInStorageTiledeskToken storedTiledeskToken ', storedTiledeskToken)
-    if (!storedTiledeskToken) {
-      this.logger.log('[TILEDESK-AUTH] - checkAndSetInStorageTiledeskToken TOKEN DOES NOT EXIST - RUN SET ')
-      localStorage.setItem('tiledesk_token', tiledeskToken)
-    } else if (storedTiledeskToken && storedTiledeskToken !== tiledeskToken) {
-      this.logger.log('[TILEDESK-AUTH] - checkAndSetInStorageTiledeskToken STORED-TOKEN EXIST BUT IS != FROM TOKEN - RUN SET ')
-      localStorage.setItem('tiledesk_token', tiledeskToken)
-    } else if (storedTiledeskToken && storedTiledeskToken === tiledeskToken) {
-      this.logger.log('[TILEDESK-AUTH] - checkAndSetInStorageTiledeskToken STORED-TOKEN EXIST AND IS = TO TOKEN ')
+  private checkAndSetInStorageGPTMysiteToken(GPTMysiteToken) {
+    this.logger.log('[GPTMysite-AUTH] - checkAndSetInStorageGPTMysiteToken GPTMysiteToken from request', GPTMysiteToken)
+    const storedGPTMysiteToken = localStorage.getItem('GPTMysite_token');
+    this.logger.log('[GPTMysite-AUTH] - checkAndSetInStorageGPTMysiteToken storedGPTMysiteToken ', storedGPTMysiteToken)
+    if (!storedGPTMysiteToken) {
+      this.logger.log('[GPTMysite-AUTH] - checkAndSetInStorageGPTMysiteToken TOKEN DOES NOT EXIST - RUN SET ')
+      localStorage.setItem('GPTMysite_token', GPTMysiteToken)
+    } else if (storedGPTMysiteToken && storedGPTMysiteToken !== GPTMysiteToken) {
+      this.logger.log('[GPTMysite-AUTH] - checkAndSetInStorageGPTMysiteToken STORED-TOKEN EXIST BUT IS != FROM TOKEN - RUN SET ')
+      localStorage.setItem('GPTMysite_token', GPTMysiteToken)
+    } else if (storedGPTMysiteToken && storedGPTMysiteToken === GPTMysiteToken) {
+      this.logger.log('[GPTMysite-AUTH] - checkAndSetInStorageGPTMysiteToken STORED-TOKEN EXIST AND IS = TO TOKEN ')
     }
-    this.appStorage.setItem('tiledeskToken', tiledeskToken)
+    this.appStorage.setItem('GPTMysiteToken', GPTMysiteToken)
   }
 
   isLoggedIn(): Promise<boolean>{
@@ -215,12 +215,12 @@ export class TiledeskAuthService {
   setCurrentUser(user: UserModel) {
     this.currentUser = user;
   }
-  getTiledeskToken(): string {
-    return this.tiledeskToken;
+  getGPTMysiteToken(): string {
+    return this.GPTMysiteToken;
   }
 
-  setTiledeskToken(token: string) {
-    this.tiledeskToken = token
+  setGPTMysiteToken(token: string) {
+    this.GPTMysiteToken = token
   }
 
 }

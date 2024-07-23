@@ -35,7 +35,7 @@ export class FirebaseAuthService extends MessagingAuthService {
   public SERVER_BASE_URL: string;
 
   // private
-  private URL_TILEDESK_CREATE_CUSTOM_TOKEN: string;
+  private URL_GPTMysite_CREATE_CUSTOM_TOKEN: string;
 
   private firebaseToken: string;
   private logger: LoggerService = LoggerInstance.getInstance()
@@ -56,8 +56,8 @@ export class FirebaseAuthService extends MessagingAuthService {
   initialize() {
     this.logger.log('initialize FROM [APP-COMP] [FIREBASEAuthSERVICE]')
     this.SERVER_BASE_URL = this.getBaseUrl();
-    this.URL_TILEDESK_CREATE_CUSTOM_TOKEN = this.SERVER_BASE_URL + 'chat21/firebase/auth/createCustomToken';
-    this.logger.log('[FIREBASEAuthSERVICE] - initialize URL_TILEDESK_CREATE_CUSTOM_TOKEN ', this.URL_TILEDESK_CREATE_CUSTOM_TOKEN)
+    this.URL_GPTMysite_CREATE_CUSTOM_TOKEN = this.SERVER_BASE_URL + 'chat21/firebase/auth/createCustomToken';
+    this.logger.log('[FIREBASEAuthSERVICE] - initialize URL_GPTMysite_CREATE_CUSTOM_TOKEN ', this.URL_GPTMysite_CREATE_CUSTOM_TOKEN)
 
     
     let firebasePersistence;
@@ -106,9 +106,9 @@ export class FirebaseAuthService extends MessagingAuthService {
    */
   // checkIsAuth() {
   //   this.logger.printDebug(' ---------------- AuthService checkIsAuth ---------------- ')
-  //   this.tiledeskToken = this.appStorage.getItem('tiledeskToken')
+  //   this.GPTMysiteToken = this.appStorage.getItem('GPTMysiteToken')
   //   this.currentUser = JSON.parse(this.appStorage.getItem('currentUser'));
-  //   if (this.tiledeskToken) {
+  //   if (this.GPTMysiteToken) {
   //     this.logger.printDebug(' ---------------- MI LOGGO CON UN TOKEN ESISTENTE NEL LOCAL STORAGE O PASSATO NEI PARAMS URL ---------------- ')
   //     this.createFirebaseCustomToken();
   //   }  else {
@@ -119,8 +119,8 @@ export class FirebaseAuthService extends MessagingAuthService {
   //   // da rifattorizzare il codice seguente!!!
   //   // const that = this;
   //   // this.route.queryParams.subscribe(params => {
-  //   //   if (params.tiledeskToken) {
-  //   //     that.tiledeskToken = params.tiledeskToken;
+  //   //   if (params.GPTMysiteToken) {
+  //   //     that.GPTMysiteToken = params.GPTMysiteToken;
   //   //   }
   //   // });
   // }
@@ -215,7 +215,7 @@ export class FirebaseAuthService extends MessagingAuthService {
     firebase.auth().signOut().then(() => {
       that.logger.log('[FIREBASEAuthSERVICE] signOut firebase-sign-out');
       // cancello token
-      // this.appStorage.removeItem('tiledeskToken');
+      // this.appStorage.removeItem('GPTMysiteToken');
       //localStorage.removeItem('firebaseToken');
 
 
@@ -246,15 +246,15 @@ export class FirebaseAuthService extends MessagingAuthService {
    *
    * @param token
    */
-  createCustomToken(tiledeskToken: string) {
+  createCustomToken(GPTMysiteToken: string) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
-      Authorization: tiledeskToken
+      Authorization: GPTMysiteToken
     });
     const responseType = 'text';
     const postData = {};
     const that = this;
-    this.http.post(this.URL_TILEDESK_CREATE_CUSTOM_TOKEN, postData, { headers, responseType }).subscribe(data => {
+    this.http.post(this.URL_GPTMysite_CREATE_CUSTOM_TOKEN, postData, { headers, responseType }).subscribe(data => {
       that.firebaseToken = data;
       //localStorage.setItem('firebaseToken', that.firebaseToken);
       that.signInFirebaseWithCustomToken(data)

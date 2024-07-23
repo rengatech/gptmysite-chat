@@ -1,5 +1,5 @@
-import { TiledeskAuthService } from './../../../../chat21-core/providers/tiledesk/tiledesk-auth.service';
-import { TiledeskService } from '../../../services/tiledesk/tiledesk.service';
+import { GPTMysiteAuthService } from './../../../../chat21-core/providers/GPTMysite/GPTMysite-auth.service';
+import { GPTMysiteService } from '../../../services/GPTMysite/GPTMysite.service';
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 // models
 import { UserModel } from 'src/chat21-core/models/user';
@@ -52,12 +52,12 @@ export class InfoContentComponent implements OnInit {
   constructor(
     public archivedConversationsHandlerService: ArchivedConversationsHandlerService,
     public conversationsHandlerService: ConversationsHandlerService,
-    public tiledeskAuthService: TiledeskAuthService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
     private route: ActivatedRoute,
     public contactsService: ContactsService,
     public appConfigProvider: AppConfigProvider,
     private sanitizer: DomSanitizer,
-    public tiledeskService: TiledeskService
+    public GPTMysiteService: GPTMysiteService
 
   ) {
 
@@ -110,9 +110,9 @@ export class InfoContentComponent implements OnInit {
   }
 
   getProjectIdByConversationWith(conversationWith: string) {
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken();
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken();
 
-    this.tiledeskService.getProjectIdByConvRecipient(tiledeskToken, conversationWith).subscribe(res => {
+    this.GPTMysiteService.getProjectIdByConvRecipient(GPTMysiteToken, conversationWith).subscribe(res => {
       this.logger.log('[INFO-CONTENT-COMP] - GET PROJECTID BY CONV RECIPIENT RES', res);
 
       if (res) {
@@ -225,8 +225,8 @@ export class InfoContentComponent implements OnInit {
 
     this.member = null;
 
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken();
-    this.contactsService.loadContactDetail(tiledeskToken, this.conversationWith)
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken();
+    this.contactsService.loadContactDetail(GPTMysiteToken, this.conversationWith)
       .subscribe(res => {
         this.logger.log('[INFO-CONTENT-COMP] - setInfoDirect loadContactDetail RES', res);
         this.member = res
@@ -251,13 +251,13 @@ export class InfoContentComponent implements OnInit {
   // ---------------------------------------------------
   setInfoSupportGroup() {
     this.logger.log('[INFO-CONTENT-COMP] setInfoSupportGroup HERE YES ');
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken();
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken();
     const DASHBOARD_URL = this.appConfigProvider.getConfig().dashboardUrl;
     this.logger.log('[INFO-CONTENT-COMP] setInfoSupportGroup projectID ', this.project_id);
 
     if (this.conversationWith) {
       let urlPanel = DASHBOARD_URL + '#/project/' + this.project_id + '/request-for-panel/' + this.conversationWith;
-      urlPanel += '?token=' + tiledeskToken;
+      urlPanel += '?token=' + GPTMysiteToken;
 
       const urlConversationTEMP = this.sanitizer.bypassSecurityTrustResourceUrl(urlPanel);
       this.urlConversationSupportGroup = urlConversationTEMP;

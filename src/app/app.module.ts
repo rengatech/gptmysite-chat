@@ -297,7 +297,7 @@ const appInitializerFn = (appConfig: AppConfigProvider, brandService: BrandServi
       enableSourceMaps: false,
       disableFileDetails: true,
       colorScheme: ['purple', 'yellow', 'gray', 'gray', 'red', 'red', 'red'],
-      // serverLoggingUrl: 'https://tiledesk-server-pre.herokuapp.com/logs'
+      // serverLoggingUrl: 'https://GPTMysite-server-pre.herokuapp.com/logs'
     }),
     ScrollbarThemeModule,
     SharedModule,

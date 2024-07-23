@@ -111,7 +111,7 @@
   "LABEL_ENTER_MSG": "Geben Sie eine Nachricht ein oder drücken Sie / für vorgefertigte Antworten",
   "LABEL_ENTER_MSG_SHORT": "Geben Sie eine Nachricht ein",
   "LABEL_ENTER_MSG_SHORTER": "Eingeben...",
-  "LABEL_MSG_LOGIN_TILEDESK": "Gehen Sie zum Login, um mit dem Chatten zu beginnen",
+  "LABEL_MSG_LOGIN_GPTMysite": "Gehen Sie zum Login, um mit dem Chatten zu beginnen",
   "LABEL_ARCHIVED": "Archiviert",
   "LABEL_INFO_CONVERSATION": "Infogespräch",
   "LABEL_INFO_USER": "Info-Benutzer",

@@ -1,4 +1,4 @@
-import { TiledeskAuthService } from './../../../../chat21-core/providers/tiledesk/tiledesk-auth.service';
+import { GPTMysiteAuthService } from './../../../../chat21-core/providers/GPTMysite/GPTMysite-auth.service';
 import { Component, OnInit, AfterViewInit, Input, OnChanges, Renderer2, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { ImageRepoService } from 'src/chat21-core/providers/abstract/image-repo.service';
 import { PresenceService } from 'src/chat21-core/providers/abstract/presence.service';
@@ -38,7 +38,7 @@ export class InfoGroupComponent implements OnInit, AfterViewInit, OnChanges {
   constructor(
     public imageRepoService: ImageRepoService,
     public presenceService: PresenceService,
-    public tiledeskAuthService: TiledeskAuthService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
     public contactsService: ContactsService,
     public renderer: Renderer2,
     private router: Router,
@@ -122,7 +122,7 @@ export class InfoGroupComponent implements OnInit, AfterViewInit, OnChanges {
 
     if (this.groupDetail) {
       if (this.groupDetail.uid.startsWith('group-')) {
-        const tiledeskToken = this.tiledeskAuthService.getTiledeskToken();
+        const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken();
 
         this.member_array = []
         const members_isonline_array = []
@@ -156,7 +156,7 @@ export class InfoGroupComponent implements OnInit, AfterViewInit, OnChanges {
 
             });
 
-          this.contactsService.loadContactDetail(tiledeskToken, key)
+          this.contactsService.loadContactDetail(GPTMysiteToken, key)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe(user => {
               this.logger.log('InfoGroupComponent group detail loadContactDetail RES', user);

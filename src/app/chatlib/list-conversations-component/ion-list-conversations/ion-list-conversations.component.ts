@@ -12,7 +12,7 @@ import * as moment from 'moment';
 import { NetworkService } from '../../../services/network-service/network.service';
 import { AppConfigProvider } from 'src/app/services/app-config';
 import { DomSanitizer } from '@angular/platform-browser'
-import { TiledeskAuthService } from 'src/chat21-core/providers/tiledesk/tiledesk-auth.service';
+import { GPTMysiteAuthService } from 'src/chat21-core/providers/GPTMysite/GPTMysite-auth.service';
 import { AlertController } from '@ionic/angular';
 import { CustomTranslateService } from 'src/chat21-core/providers/custom-translate.service';
 import { isAudio, isFile, isFrame, isImage } from 'src/chat21-core/utils/utils-message';
@@ -72,7 +72,7 @@ export class IonListConversationsComponent extends ListConversationsComponent im
     private networkService: NetworkService,
     private appConfigProvider: AppConfigProvider,
     private sanitizer: DomSanitizer,
-    public tiledeskAuthService: TiledeskAuthService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
     public alertController: AlertController
 
   ) {
@@ -138,7 +138,7 @@ export class IonListConversationsComponent extends ListConversationsComponent im
 
   setMomentLocale() {
     this.browserLang = this.translate.getBrowserLang();
-    const currentUser = this.tiledeskAuthService.getCurrentUser();
+    const currentUser = this.GPTMysiteAuthService.getCurrentUser();
     this.logger.log('[ION-LIST-CONVS-COMP] - ngOnInit - currentUser ', currentUser)
     let currentUserId = ''
     if (currentUser) {

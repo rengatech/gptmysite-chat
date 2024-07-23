@@ -17,7 +17,7 @@ import { Platform } from '@ionic/angular'
 import { ModalController } from '@ionic/angular'
 import { EventsService } from 'src/app/services/events-service'
 import { CreateTicketPage } from 'src/app/modals/create-ticket/create-ticket.page'
-import { TiledeskService } from 'src/app/services/tiledesk/tiledesk.service'
+import { GPTMysiteService } from 'src/app/services/GPTMysite/GPTMysite.service'
 import { CHANNEL_TYPE } from 'src/chat21-core/utils/constants'
 import { isOnMobileDevice } from 'src/chat21-core/utils/utils';
 
@@ -55,7 +55,7 @@ export class HeaderConversationDetailComponent implements OnInit, OnChanges {
     private route: ActivatedRoute,
     public platform: Platform,
     private router: Router,
-    public tiledeskService: TiledeskService,
+    public GPTMysiteService: GPTMysiteService,
     public events: EventsService,
   ) {
     

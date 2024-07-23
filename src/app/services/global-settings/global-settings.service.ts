@@ -104,22 +104,22 @@ export class GlobalSettingsService {
     this.logger.debug('[GLOBAL-SET] setVariablesFromUrlParameters: ');
     const windowContext = globals.windowContext;
     let TEMP: any;
-    TEMP = getParameterByName(windowContext, 'tiledesk_tenant');
+    TEMP = getParameterByName(windowContext, 'GPTMysite_tenant');
     if (TEMP) {
         globals.tenant = stringToBoolean(TEMP);
     }
 
-    TEMP = getParameterByName(windowContext, 'tiledesk_supportMode');
+    TEMP = getParameterByName(windowContext, 'GPTMysite_supportMode');
     if (TEMP) {
         globals.supportMode = stringToBoolean(TEMP);
     }
 
-    TEMP = getParameterByName(windowContext, 'tiledesk_lang');
+    TEMP = getParameterByName(windowContext, 'GPTMysite_lang');
     if (TEMP) {
         globals.lang = stringToBoolean(TEMP);
     }
 
-    TEMP = getParameterByName(windowContext, 'tiledesk_persistence');
+    TEMP = getParameterByName(windowContext, 'GPTMysite_persistence');
     if (TEMP) {
         globals.persistence = TEMP;
     }
@@ -129,7 +129,7 @@ export class GlobalSettingsService {
         globals.jwt = TEMP;
     }
 
-    TEMP = getParameterByName(windowContext, 'tiledesk_logLevel');
+    TEMP = getParameterByName(windowContext, 'GPTMysite_logLevel');
     if (TEMP) {
         globals.logLevel = TEMP;
     }

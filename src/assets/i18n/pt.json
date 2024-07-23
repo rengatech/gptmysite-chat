@@ -111,7 +111,7 @@
   "LABEL_ENTER_MSG": "Digite uma mensagem ou pressione / para respostas prontas",
   "LABEL_ENTER_MSG_SHORT": "Digite uma mensagem",
   "LABEL_ENTER_MSG_SHORTER": "Entrar...",
-  "LABEL_MSG_LOGIN_TILEDESK": "Vá para o login para começar a conversar",
+  "LABEL_MSG_LOGIN_GPTMysite": "Vá para o login para começar a conversar",
   "LABEL_ARCHIVED": "Arquivado",
   "LABEL_INFO_CONVERSATION": "Conversa de informações",
   "LABEL_INFO_USER": "Informações do usuário",
@@ -302,7 +302,7 @@
     "MESSAGE_PLACEHOLDER": "Digite sua mensagem...",
     "SEND_EMAIL_SUCCESS": "E-mail enviado com sucesso ✌🏻",
     "SEND_EMAIL_ERROR": "⚠️ ATENÇÃO ⚠️ Ocorreu um erro ao enviar o e-mail. Tente novamente",
-    "SUBJECT_OFFLINE_MESSAGE": "Mensagem off-line do Tiledesk 💬",
+    "SUBJECT_OFFLINE_MESSAGE": "Mensagem off-line do GPTMysite 💬",
     "SEND_EMAIL_SUCCESS_OFFLINE_MESSAGE": "Mensagem também enviada por e-mail 📩"
   }
 }

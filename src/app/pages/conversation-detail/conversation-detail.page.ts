@@ -40,7 +40,7 @@ import { CustomTranslateService } from 'src/chat21-core/providers/custom-transla
 import { TypingService } from 'src/chat21-core/providers/abstract/typing.service'
 import { ConversationHandlerBuilderService } from 'src/chat21-core/providers/abstract/conversation-handler-builder.service'
 import { GroupsHandlerService } from 'src/chat21-core/providers/abstract/groups-handler.service'
-import { TiledeskAuthService } from 'src/chat21-core/providers/tiledesk/tiledesk-auth.service'
+import { GPTMysiteAuthService } from 'src/chat21-core/providers/GPTMysite/GPTMysite-auth.service'
 import { ConversationsHandlerService } from 'src/chat21-core/providers/abstract/conversations-handler.service'
 import { ArchivedConversationsHandlerService } from 'src/chat21-core/providers/abstract/archivedconversations-handler.service'
 import { ConversationHandlerService } from 'src/chat21-core/providers/abstract/conversation-handler.service'
@@ -84,7 +84,7 @@ import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance'
 
 import { Observable, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
-import { TiledeskService } from '../../services/tiledesk/tiledesk.service'
+import { GPTMysiteService } from '../../services/GPTMysite/GPTMysite.service'
 import { NetworkService } from '../../services/network-service/network.service'
 import { EventsService } from '../../services/events-service'
 import { ScrollbarThemeDirective } from 'src/app/utils/scrollbar-theme.directive'
@@ -204,7 +204,7 @@ export class ConversationDetailPage implements OnInit, OnDestroy, AfterViewInit 
    * @param appConfigProvider
    * @param modalController
    * @param typingService
-   * @param tiledeskAuthService
+   * @param GPTMysiteAuthService
    * @param conversationsHandlerService
    * @param archivedConversationsHandlerService
    * @param conversationHandlerService
@@ -228,7 +228,7 @@ export class ConversationDetailPage implements OnInit, OnDestroy, AfterViewInit 
     public appConfigProvider: AppConfigProvider,
     public modalController: ModalController,
     public typingService: TypingService,
-    public tiledeskAuthService: TiledeskAuthService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
     public conversationsHandlerService: ConversationsHandlerService,
     public archivedConversationsHandlerService: ArchivedConversationsHandlerService,
     public conversationHandlerService: ConversationHandlerService,
@@ -239,7 +239,7 @@ export class ConversationDetailPage implements OnInit, OnDestroy, AfterViewInit 
     public imageRepoService: ImageRepoService,
     public presenceService: PresenceService,
     public toastController: ToastController,
-    public tiledeskService: TiledeskService,
+    public GPTMysiteService: GPTMysiteService,
     private networkService: NetworkService,
     private events: EventsService,
     private webSocketService: WebsocketService,
@@ -427,7 +427,7 @@ export class ConversationDetailPage implements OnInit, OnDestroy, AfterViewInit 
   ionViewWillEnter() {
     // this.info_content_child_enabled = true;
     this.logger.log('[CONVS-DETAIL] TEST > ionViewWillEnter - convId ', this.conversationWith)
-    this.loggedUser = this.tiledeskAuthService.getCurrentUser()
+    this.loggedUser = this.GPTMysiteAuthService.getCurrentUser()
     this.logger.log('[CONVS-DETAIL] ionViewWillEnter loggedUser: ', this.loggedUser)
     this.listnerStart()
   }
@@ -475,7 +475,7 @@ export class ConversationDetailPage implements OnInit, OnDestroy, AfterViewInit 
   // --------------------------------------------------
   initialize() {
 
-    this.loggedUser = this.tiledeskAuthService.getCurrentUser()
+    this.loggedUser = this.GPTMysiteAuthService.getCurrentUser()
     this.logger.log('[CONVS-DETAIL] - initialize -> loggedUser: ', this.loggedUser)
     this.translations()
     this.setStyleMap()
@@ -536,12 +536,12 @@ export class ConversationDetailPage implements OnInit, OnDestroy, AfterViewInit 
   }
 
   _getProjectIdByConversationWith(conversationWith: string) {
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken()
-    this.tiledeskService.getProjectIdByConvRecipient(tiledeskToken, conversationWith).subscribe((res) => {
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken()
+    this.GPTMysiteService.getProjectIdByConvRecipient(GPTMysiteToken, conversationWith).subscribe((res) => {
       this.logger.log('[CONVS-DETAIL] - GET PROJECTID BY CONV RECIPIENT RES + projectId', res, res.id_project)
       if (res) {
         const projectId = res.id_project
-        this.getProjectById(tiledeskToken, projectId)
+        this.getProjectById(GPTMysiteToken, projectId)
       }
     }, (error) => {
       this.logger.error('[CONVS-DETAIL] - GET PROJECTID BY CONV RECIPIENT - ERROR  ', error)
@@ -550,8 +550,8 @@ export class ConversationDetailPage implements OnInit, OnDestroy, AfterViewInit 
     })
   }
 
-  getProjectById(tiledeskToken, projectId) {
-    this.tiledeskService.getProjectById(tiledeskToken, projectId).subscribe((project) => {
+  getProjectById(GPTMysiteToken, projectId) {
+    this.GPTMysiteService.getProjectById(GPTMysiteToken, projectId).subscribe((project) => {
       this.logger.log('[CONVS-DETAIL] - GET PROJECTID BY CONV RECIPIENT RES', project)
       if (project) {
         const projectId = project.id_project
@@ -954,10 +954,10 @@ export class ConversationDetailPage implements OnInit, OnDestroy, AfterViewInit 
   getLeadDetail() {
     const that = this;
     if (this.channelType !== TYPE_DIRECT) {
-      const tiledeskToken = this.tiledeskAuthService.getTiledeskToken();
+      const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken();
       const projectId = getProjectIdSelectedConversation(this.conversationWith)
       this.logger.debug('[CONVS-DETAIL] getLeadDetail - section ', projectId)
-      this.tiledeskService.getRequest(this.conversationWith, projectId, tiledeskToken).subscribe((request: any) => {
+      this.GPTMysiteService.getRequest(this.conversationWith, projectId, GPTMysiteToken).subscribe((request: any) => {
         that.logger.debug('[CONVS-DETAIL] getLeadDetail - selected REQUEST detail', request)
         if(request && request.channel){
           this.conversation.attributes['request_channel'] = request.channel.name
@@ -1023,13 +1023,13 @@ export class ConversationDetailPage implements OnInit, OnDestroy, AfterViewInit 
   }
 
   sendEmail(message: string): Observable<boolean> {
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken();
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken();
     const emailFormGroup = {
       subject: this.translationsMap.get('EMAIL.SUBJECT_OFFLINE_MESSAGE'),
       text: message
     }
     let status = new Subject<boolean>();
-    this.tiledeskService.sendEmail(tiledeskToken, this.leadInfo.projectId, this.conversationWith, emailFormGroup).subscribe((res) => {
+    this.GPTMysiteService.sendEmail(GPTMysiteToken, this.leadInfo.projectId, this.conversationWith, emailFormGroup).subscribe((res) => {
       this.logger.debug('[SEND-EMAIL-MODAL] subscribe to sendEmail API response -->', res)
       if (res && res.queued) {
         this.presentToast(this.translationsMap.get('EMAIL.SEND_EMAIL_SUCCESS_OFFLINE_MESSAGE'), 'success', '', 2000)

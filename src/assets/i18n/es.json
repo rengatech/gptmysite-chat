@@ -111,7 +111,7 @@
   "LABEL_ENTER_MSG": "Introduzca un mensaje o presione / para respuestas predefinidas",
   "LABEL_ENTER_MSG_SHORT": "Introduzca un mensaje",
   "LABEL_ENTER_MSG_SHORTER": "Escribir...",
-  "LABEL_MSG_LOGIN_TILEDESK": "Ir al inicio de sesión para empezar a chatear",
+  "LABEL_MSG_LOGIN_GPTMysite": "Ir al inicio de sesión para empezar a chatear",
   "LABEL_ARCHIVED": "Archivado",
   "LABEL_INFO_CONVERSATION": "Info conversación",
   "LABEL_INFO_USER": "Info usuario",

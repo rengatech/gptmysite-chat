@@ -1,12 +1,12 @@
 {
     "name": "@chat21/chat21-ionic",
-    "author": "Tiledesk SRL",
+    "author": "GPTMysite SRL",
     "version": "3.4.1",
     "license": "MIT License",
-    "homepage": "https://tiledesk.com/",
+    "homepage": "https://GPTMysite.com/",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Tiledesk/chat21-ionic"
+        "url": "https://github.com/GPTMysite/chat21-ionic"
     },
     "scripts": {
         "ng": "ng",
@@ -130,7 +130,7 @@
             "ionic-plugin-deeplinks": {
                 "URL_SCHEME": "chat",
                 "DEEPLINK_SCHEME": "https",
-                "DEEPLINK_HOST": "panel.tiledesk.com",
+                "DEEPLINK_HOST": "panel.GPTMysite.com",
                 "ANDROID_PATH_PREFIX": "/",
                 "ANDROID_2_PATH_PREFIX": "/",
                 "ANDROID_3_PATH_PREFIX": "/",

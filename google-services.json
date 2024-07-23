@@ -1,9 +1,9 @@
 {
   "project_info": {
     "project_number": "522823349790",
-    "firebase_url": "https://tiledesk-v3-prod-cf4ff-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "tiledesk-v3-prod-cf4ff",
-    "storage_bucket": "tiledesk-v3-prod-cf4ff.appspot.com"
+    "firebase_url": "https://GPTMysite-v3-prod-cf4ff-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "GPTMysite-v3-prod-cf4ff",
+    "storage_bucket": "GPTMysite-v3-prod-cf4ff.appspot.com"
   },
   "client": [
     {

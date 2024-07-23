@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import { ModalController } from '@ionic/angular'
 import { TranslateService } from '@ngx-translate/core';
-import { TiledeskService } from 'src/app/services/tiledesk/tiledesk.service';
-import { TiledeskAuthService } from 'src/chat21-core/providers/tiledesk/tiledesk-auth.service';
+import { GPTMysiteService } from 'src/app/services/GPTMysite/GPTMysite.service';
+import { GPTMysiteAuthService } from 'src/chat21-core/providers/GPTMysite/GPTMysite-auth.service';
 import { LoggerService } from 'src/chat21-core/providers/abstract/logger.service';
 import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance';
 @Component({
@@ -19,7 +19,7 @@ export class CreateRequesterPage implements OnInit {
   @Input() projectUserAndLeadsArray: any
  
   prjctID: string;
-  tiledeskToken: string;
+  GPTMysiteToken: string;
   showSpinnerCreateRequester: boolean = false; 
   requester_id: string;
   logger: LoggerService = LoggerInstance.getInstance();
@@ -27,8 +27,8 @@ export class CreateRequesterPage implements OnInit {
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-    public tiledeskService: TiledeskService,
-    public tiledeskAuthService: TiledeskAuthService,
+    public GPTMysiteService: GPTMysiteService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
     private translate: TranslateService,
   ) {   }
 
@@ -42,8 +42,8 @@ export class CreateRequesterPage implements OnInit {
       this.prjctID = storedPrjctObjct.id_project.id
       this.logger.log('[CREATE-REQUESTER] this.prjctID ', this.prjctID)
     }
-    this.tiledeskToken = this.tiledeskAuthService.getTiledeskToken()
-    this.logger.log('[CREATE-REQUESTER] tiledeskToken ', this.tiledeskToken)
+    this.GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken()
+    this.logger.log('[CREATE-REQUESTER] GPTMysiteToken ', this.GPTMysiteToken)
 
     this.buildForm()
 
@@ -84,13 +84,13 @@ export class CreateRequesterPage implements OnInit {
     this.logger.log('[CREATE-REQUESTER] - CREATE-NEW-USER email ', new_user_email);
 
 
-    this.tiledeskService.createNewProjectUserToGetNewLeadID(this.prjctID, this.tiledeskToken).subscribe(res => {
+    this.GPTMysiteService.createNewProjectUserToGetNewLeadID(this.prjctID, this.GPTMysiteToken).subscribe(res => {
       this.logger.log('[CREATE-REQUESTER] - CREATE-NEW-USER - CREATE-PROJECT-USER ', res);
       this.logger.log('[CREATE-REQUESTER] - CREATE-NEW-USER - CREATE-PROJECT-USER UUID ', res.uuid_user);
       if (res) {
         if (res.uuid_user) {
           let new_lead_id = res.uuid_user
-          this.createNewContact(new_lead_id, new_user_name, new_user_email, this.prjctID, this.tiledeskToken)
+          this.createNewContact(new_lead_id, new_user_name, new_user_email, this.prjctID, this.GPTMysiteToken)
         }
       }
     }, error => {
@@ -103,8 +103,8 @@ export class CreateRequesterPage implements OnInit {
   }
 
 
-  createNewContact(lead_id: string, lead_name: string, lead_email: string, projecId: string, tiledeskToken: string) {
-    this.tiledeskService.createNewLead(lead_id, lead_name, lead_email, projecId, tiledeskToken ).subscribe(lead => {
+  createNewContact(lead_id: string, lead_name: string, lead_email: string, projecId: string, GPTMysiteToken: string) {
+    this.GPTMysiteService.createNewLead(lead_id, lead_name, lead_email, projecId, GPTMysiteToken ).subscribe(lead => {
       this.logger.log('[CREATE-REQUESTER] - CREATE-NEW-USER - CREATE-NEW-LEAD -  RES ', lead);
       this.projectUserAndLeadsArray.push({ id: lead.lead_id, name: lead.fullname, role: 'lead', email: lead_email, requestertype: 'lead', requester_id: lead._id});
       this.requester_id = lead._id

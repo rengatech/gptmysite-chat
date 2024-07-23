@@ -796,7 +796,7 @@ export function createExternalSidebar(renderer, srcIframe?, urlIcons?) {
   document.head.innerHTML += '<link rel="stylesheet" type="text/css" href="' + urlIcons + '" />';
 
   if (!srcIframe || srcIframe === '') {
-    srcIframe = 'https://support-pre.tiledesk.com/dashboard/';
+    srcIframe = 'https://support-pre.GPTMysite.com/dashboard/';
   }
 
   const elementApp = document.getElementsByTagName('app-root')[0];

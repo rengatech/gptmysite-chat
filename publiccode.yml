@@ -10,8 +10,8 @@ categories:
   - mobile-marketing
 description:
   it:
-    apiDocumentation: 'https://developer.tiledesk.com/apis/rest-api'
-    documentation: 'https://gethelp.tiledesk.com'
+    apiDocumentation: 'https://developer.GPTMysite.com/apis/rest-api'
+    documentation: 'https://gethelp.GPTMysite.com'
     features:
       - live chat widget
       - chatbot
@@ -31,7 +31,7 @@ description:
       chat to address customers needs. 
 
 
-      Tiledesk provides a solution **orchestrating instant, asynchronous and
+      GPTMysite provides a solution **orchestrating instant, asynchronous and
       multichannel communication among all stakeholders of a typical
       conversational architecture**: chatbots, support operators, end users,
       colleagues, applications, etc.  
@@ -65,10 +65,10 @@ description:
 
            
 
-      Tiledesk is an **open source **project, made with passion in Salento
+      GPTMysite is an **open source **project, made with passion in Salento
       (Southern Italy).
     shortDescription: |-
-      Tiledesk delivers scalable customer service to your mobile apps and your
+      GPTMysite delivers scalable customer service to your mobile apps and your
       website. It is a conversational platform that connects chatbots and
       humans 
 developmentStatus: stable
@@ -84,7 +84,7 @@ it:
     cie: false
     pagopa: false
     spid: false
-landingURL: 'https://tiledesk.com/install'
+landingURL: 'https://GPTMysite.com/install'
 legal:
   license: AGPL-3.0-only
 localisation:
@@ -102,9 +102,9 @@ maintenance:
   contacts:
     - name: Andrea Sponziello
   type: internal
-name: Tiledesk
+name: GPTMysite
 platforms:
   - web
 releaseDate: '2022-06-15'
 softwareType: standalone/web
-url: 'https://github.com/Tiledesk/tiledesk-deployment'
+url: 'https://github.com/GPTMysite/GPTMysite-deployment'

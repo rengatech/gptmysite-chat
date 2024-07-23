@@ -12,7 +12,7 @@ import { isFile, isFrame, isImage } from 'src/chat21-core/utils/utils-message';
 
 import { LoggerService } from 'src/chat21-core/providers/abstract/logger.service';
 import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance';
-import { TiledeskAuthService } from 'src/chat21-core/providers/tiledesk/tiledesk-auth.service';
+import { GPTMysiteAuthService } from 'src/chat21-core/providers/GPTMysite/GPTMysite-auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { AppConfigProvider } from 'src/app/services/app-config';
@@ -68,7 +68,7 @@ export class IonConversationDetailComponent extends ConversationContentComponent
   constructor(
     public cdref: ChangeDetectorRef,
     public uploadService: UploadService,
-    public tiledeskAuthService: TiledeskAuthService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
     private translate: TranslateService,
     public appConfigProvider: AppConfigProvider,
     public modalController: ModalController,
@@ -93,7 +93,7 @@ export class IonConversationDetailComponent extends ConversationContentComponent
 
   setMomentLocaleAndGetTranslation() {
     this.browserLang = this.translate.getBrowserLang();
-    const currentUser = this.tiledeskAuthService.getCurrentUser();
+    const currentUser = this.GPTMysiteAuthService.getCurrentUser();
     this.logger.log('[CONVS-DETAIL][ION-CONVS-DETAIL] - ngOnInit - currentUser ', currentUser)
     let currentUserId = ''
     if (currentUser) {

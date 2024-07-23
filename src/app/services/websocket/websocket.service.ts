@@ -28,8 +28,8 @@ export class WebsocketService {
 
   ) {
     this.apiUrl = appConfigProvider.getConfig().apiUrl;
-    // SERVER_BASE_URL: 'https://tiledesk-server-pre.herokuapp.com/'
-    // CHAT IONIC API URL https://tiledesk-server-pre.herokuapp.com/"
+    // SERVER_BASE_URL: 'https://GPTMysite-server-pre.herokuapp.com/'
+    // CHAT IONIC API URL https://GPTMysite-server-pre.herokuapp.com/"
   }
 
 

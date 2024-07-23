@@ -1,11 +1,11 @@
 import { AppStorageService } from 'src/chat21-core/providers/abstract/app-storage.service';
 import { Component, Input, OnInit, SimpleChange, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
 import { CannedResponsesService } from 'src/app/services/canned-responses/canned-responses.service';
-import { TiledeskService } from 'src/app/services/tiledesk/tiledesk.service';
+import { GPTMysiteService } from 'src/app/services/GPTMysite/GPTMysite.service';
 import { UserModel } from 'src/chat21-core/models/user';
 import { LoggerService } from 'src/chat21-core/providers/abstract/logger.service';
 import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance';
-import { TiledeskAuthService } from 'src/chat21-core/providers/tiledesk/tiledesk-auth.service';
+import { GPTMysiteAuthService } from 'src/chat21-core/providers/GPTMysite/GPTMysite-auth.service';
 import { compareValues, htmlEntities } from 'src/chat21-core/utils/utils';
 import { getProjectIdSelectedConversation } from 'src/chat21-core/utils/utils-message';
 import { PLAN_NAME } from 'src/chat21-core/utils/constants';
@@ -39,15 +39,15 @@ export class CannedResponseComponent implements OnInit {
   
   private logger: LoggerService = LoggerInstance.getInstance();
   constructor(
-    public tiledeskAuthService: TiledeskAuthService,
-    public tiledeskService: TiledeskService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
+    public GPTMysiteService: GPTMysiteService,
     public cannedResponsesService: CannedResponsesService,
     public appStorageService: AppStorageService,
     public el: ElementRef
   ) { }
 
   ngOnInit() {
-    this.loggedUser = this.tiledeskAuthService.getCurrentUser()
+    this.loggedUser = this.GPTMysiteAuthService.getCurrentUser()
   }
 
   ngOnChanges(changes: SimpleChange){
@@ -101,9 +101,9 @@ export class CannedResponseComponent implements OnInit {
   }
 
   getProjectIdByConversationWith(strSearch, conversationWith: string) {
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken()
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken()
 
-    this.tiledeskService.getProjectIdByConvRecipient(tiledeskToken, conversationWith).subscribe((res) => {
+    this.GPTMysiteService.getProjectIdByConvRecipient(GPTMysiteToken, conversationWith).subscribe((res) => {
       this.logger.log('[CANNED] - loadTagsCanned - GET PROJECTID BY CONV RECIPIENT RES', res)
       if (res) {
         const projectId = res.id_project
@@ -120,11 +120,11 @@ export class CannedResponseComponent implements OnInit {
   }
 
   getAndShowCannedResponses(strSearch, projectId) {
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken()
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken()
     this.logger.log('[CANNED] - loadTagsCanned tagsCanned.length', this.tagsCanned.length)
     //if(this.tagsCanned.length <= 0 ){
     this.tagsCanned = []
-    this.cannedResponsesService.getAll(tiledeskToken, projectId).subscribe((res) => {
+    this.cannedResponsesService.getAll(GPTMysiteToken, projectId).subscribe((res) => {
       this.logger.log('[CANNED] - loadTagsCanned  getCannedResponses RES', res)
 
       this.tagsCanned = res
@@ -226,9 +226,9 @@ export class CannedResponseComponent implements OnInit {
   onConfirmEditCanned(canned, ev){
     ev.preventDefault()
     ev.stopPropagation()
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken()
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken()
     this.logger.log('[CANNED] onConfirmEditCanned ', canned, ev)
-    this.cannedResponsesService.edit(tiledeskToken, canned.id_project, canned).subscribe(cannedRes=> {
+    this.cannedResponsesService.edit(GPTMysiteToken, canned.id_project, canned).subscribe(cannedRes=> {
       canned.disabled = true
     }, (error) => {
       this.logger.error('[CANNED] - onConfirmEditCanned - ERROR  ', error)
@@ -240,9 +240,9 @@ export class CannedResponseComponent implements OnInit {
   onDeleteCanned(canned, ev){
     ev.preventDefault()
     ev.stopPropagation()
-    const tiledeskToken = this.tiledeskAuthService.getTiledeskToken()
+    const GPTMysiteToken = this.GPTMysiteAuthService.getGPTMysiteToken()
     this.logger.log('[CANNED] onDeleteCanned ', canned)
-    this.cannedResponsesService.delete(tiledeskToken, canned.id_project, canned._id).subscribe(cannedRes=> {
+    this.cannedResponsesService.delete(GPTMysiteToken, canned.id_project, canned._id).subscribe(cannedRes=> {
       if(cannedRes.status === 1000){
         this.tagsCannedFilter.splice(this.tagsCannedFilter.findIndex(el => el._id === canned._id), 1)
       }

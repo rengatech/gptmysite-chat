@@ -111,7 +111,7 @@
   "LABEL_ENTER_MSG": "Enter a message or press / for canned responses",
   "LABEL_ENTER_MSG_SHORT": "Enter a message",
   "LABEL_ENTER_MSG_SHORTER": "Enter...",
-  "LABEL_MSG_LOGIN_TILEDESK": "Go to login to start chatting",
+  "LABEL_MSG_LOGIN_GPTMysite": "Go to login to start chatting",
   "LABEL_ARCHIVED": "Archived",
   "LABEL_INFO_CONVERSATION": "Info conversation",
   "LABEL_INFO_USER": "Info user",

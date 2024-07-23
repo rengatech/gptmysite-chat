@@ -59,7 +59,7 @@ export class AudioComponent implements OnInit {
     //   // url: this.metadata.url
     // })
 
-    // this.wavesurfer.load('https://eu.rtmv3.tiledesk.com/api/files/download?path=uploads/public/files/2f715ae1-6dc6-4cbf-a94c-42be26f1a723/media-2b92sy.ogg');
+    // this.wavesurfer.load('https://eu.rtmv3.GPTMysite.com/api/files/download?path=uploads/public/files/2f715ae1-6dc6-4cbf-a94c-42be26f1a723/media-2b92sy.ogg');
 
     // this.wavesurfer.on('ready', function () {
     //   console.log('readyyyyy')

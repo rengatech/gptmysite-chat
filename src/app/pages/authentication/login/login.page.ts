@@ -4,7 +4,7 @@ import { ToastController } from '@ionic/angular';
 
 // services
 import { MessagingAuthService } from 'src/chat21-core/providers/abstract/messagingAuth.service';
-import { TiledeskAuthService } from './../../../../chat21-core/providers/tiledesk/tiledesk-auth.service';
+import { GPTMysiteAuthService } from './../../../../chat21-core/providers/GPTMysite/GPTMysite-auth.service';
 import { CustomTranslateService } from 'src/chat21-core/providers/custom-translate.service';
 import { EventsService } from '../../../services/events-service';
 
@@ -37,7 +37,7 @@ export class LoginPage implements OnInit {
   private logger: LoggerService = LoggerInstance.getInstance();
 
   constructor(
-    public tiledeskAuthService: TiledeskAuthService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
     public messagingAuthService: MessagingAuthService,
     private translateService: CustomTranslateService,
     private events: EventsService,
@@ -121,10 +121,10 @@ export class LoginPage implements OnInit {
   onSignInWithEmailAndPassword(auth: any) {
     this.showSpinnerInLoginBtn = true
     this.logger.log('[LOGIN PAGE] returnSignInWithEmailAndPassword', auth, auth.email, auth.password);
-    this.tiledeskAuthService.signInWithEmailAndPassword(auth.email, auth.password)
-      .then(tiledeskToken => {
-        this.messagingAuthService.createCustomToken(tiledeskToken) 
-        localStorage.setItem('tiledesk_token', tiledeskToken)
+    this.GPTMysiteAuthService.signInWithEmailAndPassword(auth.email, auth.password)
+      .then(GPTMysiteToken => {
+        this.messagingAuthService.createCustomToken(GPTMysiteToken) 
+        localStorage.setItem('GPTMysite_token', GPTMysiteToken)
         // Here edit stored current user
         // this.updateStoredCurrentUser()
       })

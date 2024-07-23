@@ -1,23 +1,23 @@
 [![npm version](https://badge.fury.io/js/%40chat21%2Fchat21-ionic.svg)](https://badge.fury.io/js/%40chat21%2Fchat21-ionic)
 
-> ***🚀 Do you want to install Tiledesk on your server with just one click?***
+> ***🚀 Do you want to install GPTMysite on your server with just one click?***
 > 
-> ***Use [Docker Compose Tiledesk installation](https://github.com/Tiledesk/tiledesk-deployment/blob/master/docker-compose/README.md) guide***
+> ***Use [Docker Compose GPTMysite installation](https://github.com/GPTMysite/GPTMysite-deployment/blob/master/docker-compose/README.md) guide***
 
 # Introduction
 
-Chat21 is the core of the open source live chat platform [Tiledesk.com](http://www.tiledesk.com). Tiledesk is an Open Source Live Chat platform with integrated Chatbots written in NodeJs and Express. Build your own customer support with a multi-channel platform for Web, Android and iOS.
+Chat21 is the core of the open source live chat platform [GPTMysite.com](http://www.GPTMysite.com). GPTMysite is an Open Source Live Chat platform with integrated Chatbots written in NodeJs and Express. Build your own customer support with a multi-channel platform for Web, Android and iOS.
 
 Designed to be open source since the beginning, we actively worked on it to create a totally new, first class customer service platform based on instant messaging.
 
-What is Tiledesk today? It became the open source “conversational app development” platform that everyone needs 😌
+What is GPTMysite today? It became the open source “conversational app development” platform that everyone needs 😌
 
-You can use Tiledesk to increase sales for your website or for post-sales customer service. Every conversation can be automated using our first class native chatbot technology. You can also connect your own applications using our APIs or Webhooks. Moreover you can deploy entire visual applications inside a conversation. And your applications can converse with your chatbots or your end-users! We know this is cool 😎
+You can use GPTMysite to increase sales for your website or for post-sales customer service. Every conversation can be automated using our first class native chatbot technology. You can also connect your own applications using our APIs or Webhooks. Moreover you can deploy entire visual applications inside a conversation. And your applications can converse with your chatbots or your end-users! We know this is cool 😎
 
-Tiledesk is multichannel in a totally new way. You can write your chatbot scripts with images, buttons and other cool elements that your channels support. But you will configureyour chatbot replies only once. They will run on every channel, auto-adapting the responses to the target channel whatever it is, Whatsapp, Facebook Messenger, Telegram etc.
+GPTMysite is multichannel in a totally new way. You can write your chatbot scripts with images, buttons and other cool elements that your channels support. But you will configureyour chatbot replies only once. They will run on every channel, auto-adapting the responses to the target channel whatever it is, Whatsapp, Facebook Messenger, Telegram etc.
 
 # Community? Questions? Support?
-If you need help or just want to hang out, come, say hi on our [<img width="15" alt="Tiledesk discord" src="https://seeklogo.com/images/D/discord-color-logo-E5E6DFEF80-seeklogo.com.png"> Discord](https://discord.gg/nERZEZ7SmG) server.
+If you need help or just want to hang out, come, say hi on our [<img width="15" alt="GPTMysite discord" src="https://seeklogo.com/images/D/discord-color-logo-E5E6DFEF80-seeklogo.com.png"> Discord](https://discord.gg/nERZEZ7SmG) server.                                     
 
 # Features #
 With Chat21-ionic you can:
@@ -49,10 +49,10 @@ In progress git
 * A Firebase project. Create one free on `https://firebase.google.com`
 * "Chat21 Firebase cloud functions" installed. Instructions:`https://github.com/chat21/chat21-cloud-functions`
 
-# Run Tiledesk with Docker Compose
+# Run GPTMysite with Docker Compose
 
-Do you want to install all the Tiledesk components on your server with just one click?
-Use [Docker Compose Tiledesk installation guide](https://github.com/Tiledesk/tiledesk-deployment/blob/master/docker-compose/README.md)
+Do you want to install all the GPTMysite components on your server with just one click?
+Use [Docker Compose GPTMysite installation guide](https://github.com/GPTMysite/GPTMysite-deployment/blob/master/docker-compose/README.md)
 
 
 # Installation #
@@ -99,7 +99,7 @@ Use [Docker Compose Tiledesk installation guide](https://github.com/Tiledesk/til
             "MQTTendpoint": "mqtt://<YOUR-MQTT-ENPOINT>",
             "APIendpoint": "http://<YOUR-MQTT-API-ENPOINT>"
         },
-        "apiUrl": "https://<YOUR-TILEDESK-API-URL>",
+        "apiUrl": "https://<YOUR-GPTMysite-API-URL>",
         "baseImageUrl": "https://<YOUR-BASE-IMAGE-URL>",
         "dashboardUrl": "https://<YOUR-DASHBOARD-URL>"
         "widgetBaseUrl": "https:<YOUR-WIDGET-URL>/"
@@ -137,7 +137,7 @@ Use [Docker Compose Tiledesk installation guide](https://github.com/Tiledesk/til
 ### Push notification
 * open `/src/firebase-messaging-sw.js` and replace messagingSenderId: with < your messagingSenderId >
 More info here :  https://angularfirebase.com/lessons/send-push-notifications-in-angular-with-firebase-cloud-messaging/
-* firebase-messaging-sw.js must be accessible in the root of the webapp, for example (https://support.tiledesk.com/firebase-messaging-sw.js)
+* firebase-messaging-sw.js must be accessible in the root of the webapp, for example (https://support.GPTMysite.com/firebase-messaging-sw.js)
 * After the build process, check the property gcm_sender_id of the manifest.json file. The correct value for firebase is:
 `"gcm_sender_id": "103953800507"`
     

@@ -5,7 +5,7 @@
 
     @Author Andrea Sponziello
     @Member Gabriele Panico
-    (c) Tiledesk 2020
+    (c) GPTMysite 2020
 */
 
 //let mqtt = require('mqtt');
@@ -30,7 +30,7 @@ class Chat21Client {
                     console.log("MQTTendpoint relative url");
                 }
                 var loc = window.location, new_uri;
-                if(window.frameElement && window.frameElement.getAttribute('tiledesk_context') === 'parent'){
+                if(window.frameElement && window.frameElement.getAttribute('GPTMysite_context') === 'parent'){
                     loc = window.parent.location
                 }
                 if (loc.protocol === "https:") {
@@ -205,8 +205,8 @@ class Chat21Client {
     groupCreate(name, group_id, members, callback) {
         // example:
         // {
-        //     "group_id":"group-tiledeskteam",
-        //     "group_name":"Tiledesk Team",
+        //     "group_id":"group-GPTMysiteteam",
+        //     "group_name":"GPTMysite Team",
         //     "group_members":{
         //         "608bc83b3d0b3e494f4d0578":1,
         //         "608bc81f3d0b3e494f4d0575":1,

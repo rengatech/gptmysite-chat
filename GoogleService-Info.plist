@@ -15,9 +15,9 @@
 	<key>BUNDLE_ID</key>
 	<string>it.chat.ionic</string>
 	<key>PROJECT_ID</key>
-	<string>tiledesk-v3-prod-cf4ff</string>
+	<string>GPTMysite-v3-prod-cf4ff</string>
 	<key>STORAGE_BUCKET</key>
-	<string>tiledesk-v3-prod-cf4ff.appspot.com</string>
+	<string>GPTMysite-v3-prod-cf4ff.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>GOOGLE_APP_ID</key>
 	<string>1:522823349790:ios:7ea6d121437c2a441fa00f</string>
 	<key>DATABASE_URL</key>
-	<string>https://tiledesk-v3-prod-cf4ff-default-rtdb.europe-west1.firebasedatabase.app</string>
+	<string>https://GPTMysite-v3-prod-cf4ff-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>

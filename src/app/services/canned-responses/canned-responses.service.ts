@@ -48,7 +48,7 @@ export class CannedResponsesService {
   // -------------------------------------------------------------------------------------
   public add(token: string, projectid: string, title: string, message: string) {
     const url =  this.apiUrl  + projectid + '/canned/'
-    this.logger.log('[TILEDESK-SERVICE] - CREATE CANNED-RES - URL', url); 
+    this.logger.log('[GPTMysite-SERVICE] - CREATE CANNED-RES - URL', url); 
     
     const httpOptions = {
       headers: new HttpHeaders({
@@ -63,7 +63,7 @@ export class CannedResponsesService {
     }
 
     return this.http.post(url, JSON.stringify(body), httpOptions).pipe(map((res: any) => {
-      this.logger.log('[TILEDESK-SERVICE] - CREATE CANNED-RES - RES ', res);
+      this.logger.log('[GPTMysite-SERVICE] - CREATE CANNED-RES - RES ', res);
       return res
     }))
       

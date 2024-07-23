@@ -111,7 +111,7 @@
   "LABEL_ENTER_MSG": "Skriv ett meddelande eller tryck på / för standardsvar",
   "LABEL_ENTER_MSG_SHORT": "Ange ett meddelande",
   "LABEL_ENTER_MSG_SHORTER": "Stiga på...",
-  "LABEL_MSG_LOGIN_TILEDESK": "Gå till inloggning för att börja chatta",
+  "LABEL_MSG_LOGIN_GPTMysite": "Gå till inloggning för att börja chatta",
   "LABEL_ARCHIVED": "Arkiverad",
   "LABEL_INFO_CONVERSATION": "Infokonversation",
   "LABEL_INFO_USER": "Infoanvändare",
@@ -151,7 +151,7 @@
   "BUTTON_CLOSE_TO_ICON": "Minimera chatten",
   "BUTTON_EDIT_PROFILE": "Uppdatera profil",
   "RATE_CHAT": "Betygsätt chatt",
-  "WELLCOME_TITLE": "Hej, välkommen till Tiledesk 👋",
+  "WELLCOME_TITLE": "Hej, välkommen till GPTMysite 👋",
   "WELLCOME_MSG": "Hur kan vi hjälpa?",
   "WELLCOME": "Välkommen",
   "OPTIONS": "alternativ",
@@ -302,7 +302,7 @@
     "MESSAGE_PLACEHOLDER":"Skriv ditt meddelande...",
     "SEND_EMAIL_SUCCESS":"E-post har skickats ✌🏻",
     "SEND_EMAIL_ERROR":"⚠️ OBS ⚠️ Ett fel uppstod när e-post skickades. Försök igen",
-    "SUBJECT_OFFLINE_MESSAGE":"Tiledesk Offline meddelande 💬",
+    "SUBJECT_OFFLINE_MESSAGE":"GPTMysite Offline meddelande 💬",
     "SEND_EMAIL_SUCCESS_OFFLINE_MESSAGE":"Meddelande skickas även via mail 📩"    
   }
 }

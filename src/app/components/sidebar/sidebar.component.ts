@@ -58,7 +58,7 @@ export class SidebarComponent implements OnInit {
   dashboard_activities_url: string;
   dashboard_history_url: string;
   dashboard_settings_url: string;
-  tiledesk_url: string;
+  GPTMysite_url: string;
   LOGOS_ITEMS = LOGOS_ITEMS;
   BRAND_BASE_INFO = BRAND_BASE_INFO;
   constructor(
@@ -75,7 +75,7 @@ export class SidebarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tiledesk_url = BRAND_BASE_INFO['COMPANY_SITE_URL'] as string
+    this.GPTMysite_url = BRAND_BASE_INFO['COMPANY_SITE_URL'] as string
     
     this.DASHBOARD_URL = this.appConfig.getConfig().dashboardUrl + '#/project/';
     this.getStoredProjectAndUserRole()
@@ -112,7 +112,7 @@ export class SidebarComponent implements OnInit {
     } else if (USER_ROLE === 'agent') {
       this.dashboard_settings_url = this.DASHBOARD_URL + this.project_id + '/cannedresponses'
     }
-    this.tiledesk_url = 'https://www.tiledesk.com'
+    this.GPTMysite_url = 'https://www.GPTMysite.com'
 
   }
 

@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TiledeskAuthService } from './tiledesk-auth.service';
+import { GPTMysiteAuthService } from './GPTMysite-auth.service';
 
-describe('TiledeskAuthService', () => {
+describe('GPTMysiteAuthService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: TiledeskAuthService = TestBed.get(TiledeskAuthService);
+    const service: GPTMysiteAuthService = TestBed.get(GPTMysiteAuthService);
     expect(service).toBeTruthy();
   });
 });

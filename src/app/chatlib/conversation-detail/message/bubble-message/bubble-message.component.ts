@@ -6,7 +6,7 @@ import { LoggerService } from 'src/chat21-core/providers/abstract/logger.service
 import { isAudio, isFile, isFrame, isImage, messageType } from 'src/chat21-core/utils/utils-message';
 import { LoggerInstance } from 'src/chat21-core/providers/logger/loggerInstance';
 import { TranslateService } from '@ngx-translate/core';
-import { TiledeskAuthService } from 'src/chat21-core/providers/tiledesk/tiledesk-auth.service';
+import { GPTMysiteAuthService } from 'src/chat21-core/providers/GPTMysite/GPTMysite-auth.service';
 import * as moment from 'moment';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { convertColorToRGBA } from 'src/chat21-core/utils/utils';
@@ -52,7 +52,7 @@ export class BubbleMessageComponent implements OnInit, OnChanges {
   constructor(
     public sanitizer: DomSanitizer,
     private translate: TranslateService,
-    public tiledeskAuthService: TiledeskAuthService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
     public modalController: ModalController,
     private popoverController: PopoverController
     ) {
@@ -66,7 +66,7 @@ export class BubbleMessageComponent implements OnInit, OnChanges {
 
   setMomentLocale() {
     this.browserLang = this.translate.getBrowserLang();
-    const currentUser = this.tiledeskAuthService.getCurrentUser();
+    const currentUser = this.GPTMysiteAuthService.getCurrentUser();
     let currentUserId = ''
     if (currentUser) {
       currentUserId = currentUser.uid

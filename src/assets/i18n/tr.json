@@ -111,7 +111,7 @@
   "LABEL_ENTER_MSG": "Bir mesaj girin veya hazır yanıtlar için / tuşuna basın",
   "LABEL_ENTER_MSG_SHORT": "Bir mesaj girin",
   "LABEL_ENTER_MSG_SHORTER": "Girmek...",
-  "LABEL_MSG_LOGIN_TILEDESK": "Sohbete başlamak için giriş yap",
+  "LABEL_MSG_LOGIN_GPTMysite": "Sohbete başlamak için giriş yap",
   "LABEL_ARCHIVED": "Arşivlendi",
   "LABEL_INFO_CONVERSATION": "Bilgi görüşmesi",
   "LABEL_INFO_USER": "Kullanıcısı bilgi",
@@ -151,7 +151,7 @@
   "BUTTON_CLOSE_TO_ICON": "Sohbeti simge durumuna küçült",
   "BUTTON_EDIT_PROFILE": "Profili Güncelle",
   "RATE_CHAT": "Sohbeti değerlendir",
-  "WELLCOME_TITLE": "Merhaba, Tiledesk'e hoş geldiniz 👋",
+  "WELLCOME_TITLE": "Merhaba, GPTMysite'e hoş geldiniz 👋",
   "WELLCOME_MSG": "Nasıl yardımcı olabiliriz?",
   "WELLCOME": "Hoş geldin",
   "OPTIONS": "seçenekler",
@@ -302,7 +302,7 @@
     "MESSAGE_PLACEHOLDER":"Mesajını yaz...",
     "SEND_EMAIL_SUCCESS":"E-posta başarıyla gönderildi ✌🏻",
     "SEND_EMAIL_ERROR":"⚠️ DİKKAT ⚠️ E-posta gönderirken hata oluştu. Lütfen tekrar deneyin",
-    "SUBJECT_OFFLINE_MESSAGE":"Tiledesk Çevrimdışı mesaj 💬",
+    "SUBJECT_OFFLINE_MESSAGE":"GPTMysite Çevrimdışı mesaj 💬",
     "SEND_EMAIL_SUCCESS_OFFLINE_MESSAGE":"Mesaj ayrıca e-posta ile gönderilir 📩"
   }
 }

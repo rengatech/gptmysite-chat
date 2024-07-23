@@ -11,7 +11,7 @@ import {
 import { LoggerInstance } from "src/chat21-core/providers/logger/loggerInstance";
 import { LoggerService } from "src/chat21-core/providers/abstract/logger.service";
 import { TranslateService } from "@ngx-translate/core";
-import { TiledeskAuthService } from "src/chat21-core/providers/tiledesk/tiledesk-auth.service";
+import { GPTMysiteAuthService } from "src/chat21-core/providers/GPTMysite/GPTMysite-auth.service";
 import { ImageRepoService } from "src/chat21-core/providers/abstract/image-repo.service";
 import { AppStorageService } from "src/chat21-core/providers/abstract/app-storage.service";
 import { MessagingAuthService } from "src/chat21-core/providers/abstract/messagingAuth.service";
@@ -48,7 +48,7 @@ export class SidebarUserDetailsComponent implements OnInit, OnChanges {
   profile_name_translated: string;
   SubscriptionPaymentProblem: string;
   user: any;
-  tiledeskToken: string;
+  GPTMysiteToken: string;
   // project: { _id: string, name: string, type: string, isActiveSubscription: boolean, plan_name: string}
   project: Project;
   _prjct_profile_name: string;
@@ -89,7 +89,7 @@ export class SidebarUserDetailsComponent implements OnInit, OnChanges {
 
   constructor(
     private translate: TranslateService,
-    public tiledeskAuthService: TiledeskAuthService,
+    public GPTMysiteAuthService: GPTMysiteAuthService,
     public imageRepoService: ImageRepoService,
     public appStorageService: AppStorageService,
     private messagingAuthService: MessagingAuthService,
@@ -378,8 +378,8 @@ export class SidebarUserDetailsComponent implements OnInit, OnChanges {
     });
 
     try {
-      this.tiledeskToken = this.appStorageService.getItem("tiledeskToken");
-      // console.log('[SIDEBAR-USER-DETAILS] - GET STORED TOKEN ', this.tiledeskToken)
+      this.GPTMysiteToken = this.appStorageService.getItem("GPTMysiteToken");
+      // console.log('[SIDEBAR-USER-DETAILS] - GET STORED TOKEN ', this.GPTMysiteToken)
     } catch (err) {
       this.logger.error("[SIDEBAR-USER-DETAILS] - GET STORED TOKEN ", err);
     }
@@ -498,7 +498,7 @@ export class SidebarUserDetailsComponent implements OnInit, OnChanges {
 
     this.wsService
       .updateCurrentUserAvailability(
-        this.tiledeskToken,
+        this.GPTMysiteToken,
         this.project._id,
         IS_AVAILABLE,
         profilestatus
@@ -531,7 +531,7 @@ export class SidebarUserDetailsComponent implements OnInit, OnChanges {
   }
 
   goToHelpCenter() {
-    const url = "https://gethelp.tiledesk.com/";
+    const url = "https://gethelp.GPTMysite.com/";
     window.open(url, "_blank");
   }
 
